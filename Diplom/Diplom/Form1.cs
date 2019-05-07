@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Diplom
 {
@@ -26,9 +27,18 @@ namespace Diplom
         {
             if (textBox1.Text == "admin" && textBox2.Text == "admin")
             {
+                
                 MessageBox.Show("Done", "Connect", MessageBoxButtons.OK);
+                this.Visible = false;
+                MainMenu a = new MainMenu(); //добавить потом проверку, какой тип пользюка зашёл
+                a.Show();
+
             }
-            else MessageBox.Show("Miss");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.ControlBox = false;
         }
     }
 }
