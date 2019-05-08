@@ -25,15 +25,37 @@ namespace Diplom
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "admin" && textBox2.Text == "admin")
+            bool acces = false;
+            string[] Logins = { "Administrator", "Seller" };
+            string[] Passwords = {"admin", "qwerty" };
+            for(int i = 0; i < Logins.Length; i++)
             {
-                
-                MessageBox.Show("Done", "Connect", MessageBoxButtons.OK);
-                this.Visible = false;
-                MainMenu a = new MainMenu(); //добавить потом проверку, какой тип пользюка зашёл
-                a.Show();
-
+                if (textBox1.Text == Logins[i] && textBox2.Text == Passwords[i])
+                {
+                    acces = true;
+                }
             }
+            if (acces)
+            {
+                this.Visible = false;
+                MainMenu a = new MainMenu();
+                a.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Проверьте правильность ввода логина и пароля", "", MessageBoxButtons.OK);
+            }
+
+
+            //if (textBox1.Text == "admin" && textBox2.Text == "admin")
+            //{
+                
+            //    MessageBox.Show("Done", "Connect", MessageBoxButtons.OK);
+            //    this.Visible = false;
+            //    MainMenu a = new MainMenu(); //добавить потом проверку, какой тип пользюка зашёл
+            //    a.Show();
+
+            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
