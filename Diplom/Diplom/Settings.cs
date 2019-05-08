@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Diplom
+{
+    public partial class Settings : Form
+    {
+        public Settings()
+        {
+            InitializeComponent();
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            textBox1.Text = Properties.Settings.Default.connectionString;
+            if (Properties.Settings.Default.LoginType == "Client")
+            {
+                radioButton1.Checked = true;
+            }
+            else
+            {
+                radioButton2.Checked = true;
+            }
+           
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

@@ -25,6 +25,13 @@ namespace Diplom
         private void MainMenu_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            this.Text = "Си-бемоль - " + Properties.Settings.Default.version;
+        }
+
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings s = new Settings();
+            s.ShowDialog();
         }
     }
 }

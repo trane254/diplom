@@ -9,3 +9,4 @@ D:\diplom\Diplom\Diplom\obj\Debug\Diplom.exe
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.pdb
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Form1.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.MainMenu.resources
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Settings.resources

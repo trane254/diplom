@@ -45,22 +45,12 @@ namespace Diplom
             {
                 MessageBox.Show("Проверьте правильность ввода логина и пароля", "", MessageBoxButtons.OK);
             }
-
-
-            //if (textBox1.Text == "admin" && textBox2.Text == "admin")
-            //{
-                
-            //    MessageBox.Show("Done", "Connect", MessageBoxButtons.OK);
-            //    this.Visible = false;
-            //    MainMenu a = new MainMenu(); //добавить потом проверку, какой тип пользюка зашёл
-            //    a.Show();
-
-            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            this.Text = "Вход";
         }
     }
 }
