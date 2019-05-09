@@ -9,3 +9,6 @@ CREATE TABLE Users(
 
 INSERT Users (Login, Password, UserType)
   VALUES ('admin', 'admin', 'Administration');
+
+
+SELECT * FROM Users

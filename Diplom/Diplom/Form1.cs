@@ -25,26 +25,61 @@ namespace Diplom
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool acces = false;
-            string[] Logins = { "Administrator", "Seller" };
-            string[] Passwords = {"admin", "qwerty" };
-            for(int i = 0; i < Logins.Length; i++)
+            bool access = false;
+
+            if (Properties.Settings.Default.LoginType == "Client")
             {
-                if (textBox1.Text == Logins[i] && textBox2.Text == Passwords[i])
+
+                string[] Logins = { "Administrator", "Seller" };
+                string[] Passwords = { "admin", "qwerty" };
+                for (int i = 0; i < Logins.Length; i++)
                 {
-                    acces = true;
+                    if (textBox1.Text == Logins[i] && textBox2.Text == Passwords[i])
+                    {
+                        access = true;
+                    }
+                }
+                if (access == false)
+                {
+                    MessageBox.Show("Проверьте правильность введенных данных");
+                }
+                
+            }
+            else//серверный вход
+            {
+                using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                {
+                    connect.Open();
+                    SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Login = '" + textBox1.Text + "'", connect);
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        try 
+                        {
+                            if (textBox1.Text == r[0].ToString().Replace(" ","") && textBox2.Text == r[1].ToString().Replace(" ","")) //реплейсы для убирания пробелов после получения из БД
+                            {
+                                access = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Проверьте правильность введенных данных");
+                            }
+                        }
+                        catch (System.InvalidOperationException)
+                        {
+                            MessageBox.Show("Проверьте правильность введенных данных");
+                        }
+
+                    }
+                }
+                if (access)
+                {
+                    this.Visible = false;
+                    MainMenu a = new MainMenu();
+                    a.ShowDialog();
                 }
             }
-            if (acces)
-            {
-                this.Visible = false;
-                MainMenu a = new MainMenu();
-                a.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Проверьте правильность ввода логина и пароля", "", MessageBoxButtons.OK);
-            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
