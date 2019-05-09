@@ -37,6 +37,7 @@ namespace Diplom
                     if (textBox1.Text == Logins[i] && textBox2.Text == Passwords[i])
                     {
                         access = true;
+                        break;
                     }
                 }
                 if (access == false)
@@ -72,14 +73,13 @@ namespace Diplom
 
                     }
                 }
-                if (access)
-                {
-                    this.Visible = false;
-                    MainMenu a = new MainMenu();
-                    a.ShowDialog();
-                }
             }
-
+            if (access)
+            {
+                this.Visible = false;
+                MainMenu a = new MainMenu();
+                a.ShowDialog();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
