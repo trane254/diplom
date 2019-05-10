@@ -7,6 +7,8 @@ CREATE TABLE Users(
   UserType CHAR(30)
   )
 
+
+
 CREATE TABLE Prods(
   id_code INT PRIMARY KEY,
   prod CHAR(30)
@@ -26,8 +28,21 @@ CREATE TABLE Products(
 CREATE TABLE Orders(
   id_code INT PRIMARY KEY,
   Client INT FOREIGN KEY REFERENCES Cliens(id_code),
-  product INT FOREIGN KEY REFERENCES Products(id_code)
+  product INT FOREIGN KEY REFERENCES Products(id_code),
+  Selldata DATE,
   )
+
+
+INSERT Users (Login, Password, UserType)
+  VALUES ('Administrator', 'admin', 'Administrations'),
+  ('Seller', 'qwerty', 'Sellers');
+
+INSERT Prods (id_code, prod)
+  VALUES (0, 'Gibson'),
+  (1, 'Ibanez'),
+  (2, ''
+
+
 
 --https://works.doklad.ru/view/qulslt8qYLQ/2.html
 
@@ -38,10 +53,7 @@ CREATE TABLE Orders(
 
 
 
-INSERT Users (Login, Password, UserType)
-  VALUES ('Administrator', 'admin', 'Administrations');
-INSERT Users (Login, Password, UserType)
-  VALUES ('Seller', 'qwerty', 'Sellers');
+
 
 
 SELECT * FROM Users WHERE Login = 'Administrator'
