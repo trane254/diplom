@@ -40,11 +40,21 @@ INSERT Users (Login, Password, UserType)
 INSERT Prods (id_code, prod)
   VALUES (0, 'Gibson'),
   (1, 'Ibanez'),
-  (2, ''
+  (2, 'Line 6')
+INSERT Products (id_code, manufacturer, name, price)
+  VALUES (0, 0, 'Les Paul Custom Shop', 250000),
+  (1, 1, 'GRG121DX', 18000),
+  (2, 2, 'SPIDER CLASSIC 15', 13000)
+INSERT Cliens (id_code, FirstAndSecond_name, Adress, Phone)
+  VALUES (0, 'Жмышенко В.А.', 'Курлыковой, 27', '88005553535');
+INSERT Orders (id_code, Client, product, Selldata)
+  VALUES (0, 0, 0, GETDATE());
+
 
 
 
 --https://works.doklad.ru/view/qulslt8qYLQ/2.html
+
 
 
 
