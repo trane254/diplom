@@ -1,0 +1,112 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace Diplom
+{
+    public partial class Database : Form
+    {
+        public Database()
+        {
+            InitializeComponent();
+        }
+        private void LoadAll()
+        {
+            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                connect.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Prods", connect);
+                using (SqlDataReader r = command.ExecuteReader())
+                {
+                    while(r.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        DataGridViewCell c1 = new DataGridViewTextBoxCell();
+                        c1.Value = r[0].ToString();
+                        row.Cells.Add(c1);
+                        DataGridViewCell c2 = new DataGridViewTextBoxCell();
+                        c2.Value = r[1].ToString();
+                        row.Cells.Add(c2);
+                        dataGridView1.Rows.Add(row);
+                    }
+
+                }
+                command.CommandText = "SELECT * FROM Products";
+                using (SqlDataReader r = command.ExecuteReader())
+                {
+                    while(r.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        DataGridViewCell c1 = new DataGridViewTextBoxCell();
+                        c1.Value = r[0].ToString();
+                        row.Cells.Add(c1);
+                        DataGridViewCell c2 = new DataGridViewTextBoxCell();
+                        c2.Value = r[1].ToString();
+                        row.Cells.Add(c2);
+                        DataGridViewCell c3 = new DataGridViewTextBoxCell();
+                        c3.Value = r[2].ToString();
+                        row.Cells.Add(c3);
+                        DataGridViewCell c4 = new DataGridViewTextBoxCell();
+                        c4.Value = r[3].ToString();
+                        row.Cells.Add(c4);
+                        dataGridView2.Rows.Add(row);
+                    }
+                }
+                command.CommandText = "SELECT * FROM Cliens";
+                using (SqlDataReader r = command.ExecuteReader())
+                {
+                    while (r.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        DataGridViewCell c1 = new DataGridViewTextBoxCell();
+                        c1.Value = r[0].ToString();
+                        row.Cells.Add(c1);
+                        DataGridViewCell c2 = new DataGridViewTextBoxCell();
+                        c2.Value = r[1].ToString();
+                        row.Cells.Add(c2);
+                        DataGridViewCell c3 = new DataGridViewTextBoxCell();
+                        c3.Value = r[2].ToString();
+                        row.Cells.Add(c3);
+                        DataGridViewCell c4 = new DataGridViewTextBoxCell();
+                        c4.Value = r[3].ToString();
+                        row.Cells.Add(c4);
+                        dataGridView3.Rows.Add(row);
+                    }
+                }
+                command.CommandText = "SELECT * FROM Orders";
+                using (SqlDataReader r = command.ExecuteReader())
+                {
+                    while (r.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        DataGridViewCell c1 = new DataGridViewTextBoxCell();
+                        c1.Value = r[0].ToString();
+                        row.Cells.Add(c1);
+                        DataGridViewCell c2 = new DataGridViewTextBoxCell();
+                        c2.Value = r[1].ToString();
+                        row.Cells.Add(c2);
+                        DataGridViewCell c3 = new DataGridViewTextBoxCell();
+                        c3.Value = r[2].ToString();
+                        row.Cells.Add(c3);
+                        DataGridViewCell c4 = new DataGridViewTextBoxCell();
+                        c4.Value = r[3].ToString();
+                        row.Cells.Add(c4);
+                        dataGridView4.Rows.Add(row);
+                    }
+                }
+            }
+        }
+
+        private void Database_Load(object sender, EventArgs e)
+        {
+            LoadAll();
+        }
+    }
+}

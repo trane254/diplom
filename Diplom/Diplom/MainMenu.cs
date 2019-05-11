@@ -33,5 +33,11 @@ namespace Diplom
             Settings s = new Settings();
             s.ShowDialog();
         }
+
+        private void базаДанныхToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Database a = new Database();
+            a.ShowDialog();
+        }
     }
 }
