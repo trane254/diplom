@@ -13,9 +13,12 @@ namespace Diplom
 {
     public partial class Database : Form
     {
+        int selectedDatagrid; //выбор нужного datagridview
+
         public Database()
         {
             InitializeComponent();
+            
         }
         private void LoadAll()
         {
@@ -107,6 +110,37 @@ namespace Diplom
         private void Database_Load(object sender, EventArgs e)
         {
             LoadAll();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+            selectedDatagrid = 1;
+            label1.Text = $"datagrid {selectedDatagrid}";
+        }
+        private void dataGridView2_Click(object sender, EventArgs e)
+        {
+            selectedDatagrid = 2;
+            label1.Text = $"datagrid {selectedDatagrid}";
+        }
+        private void dataGridView3_Click(object sender, EventArgs e)
+        {
+            selectedDatagrid = 3;
+            label1.Text = $"datagrid {selectedDatagrid}";
+        }
+        private void dataGridView4_Click(object sender, EventArgs e)
+        {
+            selectedDatagrid = 4;
+            label1.Text = $"datagrid {selectedDatagrid}";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
