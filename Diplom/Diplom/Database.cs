@@ -112,9 +112,43 @@ namespace Diplom
             LoadAll();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //добавление в базу, потом сделаю
         {
-            
+            switch (selectedDatagrid)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Selected)
+                {
+                    label1.Text = $"selected {dataGridView1.CurrentRow.Index}";
+                    using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                    {
+                        connect.Open();
+                        SqlCommand command = new SqlCommand($"EXECUTE DeleteProds @id={dataGridView1.CurrentRow.Index}", connect);
+                        command.ExecuteNonQuery();
+                        //MessageBox.Show("df","sf");
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void dataGridView1_Click(object sender, EventArgs e)
@@ -138,9 +172,7 @@ namespace Diplom
             label1.Text = $"datagrid {selectedDatagrid}";
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
+
     }
 }
