@@ -129,20 +129,73 @@ namespace Diplom
 
         private void button2_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            switch (selectedDatagrid)
             {
-                if (dataGridView1.Rows[i].Selected)
-                {
-                    label1.Text = $"selected {dataGridView1.CurrentRow.Index}";
-                    using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
-                    {
-                        connect.Open();
-                        SqlCommand command = new SqlCommand($"EXECUTE DeleteProds @id={dataGridView1.CurrentRow.Index}", connect);
-                        command.ExecuteNonQuery();
-                        //MessageBox.Show("df","sf");
-                        break;
+                case 1:
+                     for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                        {
+                            if (dataGridView1.Rows[i].Selected)
+                        {
+                            label1.Text = $"selected {dataGridView1.CurrentCell.Value}";
+                            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                            {
+                                connect.Open();
+                                SqlCommand command = new SqlCommand($"EXECUTE DeleteProds @id={dataGridView1.CurrentCell.Value}", connect);
+                                command.ExecuteNonQuery();
+                                break;
+                            }
+                        }
                     }
-                }
+                    break;
+                case 2:
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        if (dataGridView2.Rows[i].Selected)
+                        {
+                            label1.Text = $"selected {dataGridView2.CurrentCell.Value}";
+                            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                            {
+                                connect.Open();
+                                SqlCommand command = new SqlCommand($"EXECUTE DeleteProducts @id={dataGridView2.CurrentCell.Value}", connect);
+                                command.ExecuteNonQuery();
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                    {
+                        if (dataGridView3.Rows[i].Selected)
+                        {
+                            label1.Text = $"selected {dataGridView3.CurrentCell.Value}";
+                            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                            {
+                                connect.Open();
+                                SqlCommand command = new SqlCommand($"EXECUTE DeleteCliens @id={dataGridView3.CurrentCell.Value}", connect);
+                                command.ExecuteNonQuery();
+                                break;
+
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < dataGridView4.Rows.Count; i++)
+                    {
+                        if (dataGridView4.Rows[i].Selected)
+                        {
+                            label1.Text = $"selected {dataGridView4.CurrentCell.Value}";
+                            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                            {
+                                connect.Open();
+                                SqlCommand command = new SqlCommand($"EXECUTE DeleteOrders @id={dataGridView4.CurrentCell.Value}", connect);
+                                command.ExecuteNonQuery();
+                                break;
+                            }
+                        }
+                    }
+                    break;
             }
         }
 
