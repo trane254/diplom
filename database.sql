@@ -60,17 +60,49 @@ INSERT Orders (id_code, Client, product, Selldata)
 
 
 
+INSERT Prods (id_code, prod)
+  VALUES (10, 'HUITA');
 
 
 
-
-
-
+SELECT MAX(id_code) FROM Prods
 SELECT * FROM Users WHERE Login = 'Administrator'
-
-
-
+SELECT * FROM Cliens
+SELECT * FROM Prods 
 SELECT * FROM Users
-  
-  
-  DELETE Users 
+ 
+CREATE PROCEDURE dbo.DeleteProds
+@id INT
+AS
+BEGIN
+DELETE Prods WHERE id_code = @id
+END
+GO
+
+CREATE PROCEDURE dbo.DeleteCliens
+@id INT
+AS
+BEGIN
+DELETE Cliens WHERE id_code = @id
+END
+GO
+
+CREATE PROCEDURE dbo.DeleteProducts
+@id INT
+AS
+BEGIN
+DELETE Products WHERE id_code = @id
+END
+GO
+
+
+CREATE PROCEDURE dbo.DeleteOrders
+@id INT
+AS
+BEGIN
+DELETE Products WHERE id_code = @id
+END
+GO
+
+EXECUTE DeleteProds @id=10 
+

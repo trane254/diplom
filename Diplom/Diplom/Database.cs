@@ -22,6 +22,12 @@ namespace Diplom
         }
         private void LoadAll()
         {
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            dataGridView3.Rows.Clear();
+            dataGridView4.Rows.Clear();
+
+
             using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 connect.Open();
@@ -105,6 +111,7 @@ namespace Diplom
                     }
                 }
             }
+            
         }
 
         private void Database_Load(object sender, EventArgs e)
@@ -117,7 +124,28 @@ namespace Diplom
             switch (selectedDatagrid)
             {
                 case 1:
-                    break;
+                    using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                    {
+                        int newID;
+                        connect.Open();
+                        SqlCommand command = new SqlCommand($"SELECT MAX(id_code) FROM Prods", connect);
+                        SqlDataReader r = command.ExecuteReader();
+                        r.Read();
+                        try
+                        {
+                            newID = Convert.ToInt32(r[0]);
+                            AddForm a = new AddForm();
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.ShowDialog();
+                            //command.CommandText = $"INSERT Prods (id_code, prod) VALUES ({newID}, {a.textboxtext1});";
+                            label1.Text = $"addform {a.textboxtext1}";
+                        }
+                        catch (System.InvalidOperationException ex)
+                        {
+                            MessageBox.Show($"Error: {ex.Message}", "Внутренняя ошибка");
+                        }
+                    }
+                        break;
                 case 2:
                     break;
                 case 3:
