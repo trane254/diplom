@@ -115,6 +115,7 @@ namespace Diplom
 
         private void Database_Load(object sender, EventArgs e)
         {
+            this.ControlBox = false;
             ReloadAll();
         }
 
@@ -163,9 +164,9 @@ namespace Diplom
                             AddForm a = new AddForm();
                             a.selectedDatagrid = selectedDatagrid;
                             a.ShowDialog();
-                            command.CommandText = $"INSERT Products (id_code, manufacturer, name, price) VALUES (0, 0, '', 0);')";
+                            command.CommandText = $"INSERT Products (id_code, manufacturer, name, price) VALUES ({newID}, {a.textboxtext1}, '{a.textboxtext2}', {a.textboxtext3})";
                             command.ExecuteNonQuery();
-                            label1.Text = $"datagrid {selectedDatagrid}; addform {a.textboxtext1}";
+                            label1.Text = $"datagrid {selectedDatagrid}; addform {a.textboxtext2}";
                             ReloadAll();
                         }
                         catch (System.InvalidOperationException ex)
@@ -175,8 +176,56 @@ namespace Diplom
                     }
                     break;
                 case 3:
+                    using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                    {
+                        int newID;
+                        connect.Open();
+                        SqlCommand command = new SqlCommand($"SELECT MAX(id_code) FROM Cliens", connect);
+                        SqlDataReader r = command.ExecuteReader();
+                        r.Read();
+                        try
+                        {
+                            newID = Convert.ToInt32(r[0]) + 1;
+                            r.Close();
+                            AddForm a = new AddForm();
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.ShowDialog();
+                            command.CommandText = $"INSERT Cliens (id_code, FirstAndSecond_name, Adress, Phone) VALUES ({newID}, '{a.textboxtext1}', '{a.textboxtext2}', '{a.textboxtext3}')";
+                            command.ExecuteNonQuery();
+                            label1.Text = $"datagrid {selectedDatagrid}; addform {a.textboxtext3}";
+                            ReloadAll();
+                        }
+                        catch (System.InvalidOperationException ex)
+                        {
+                            MessageBox.Show($"Error: {ex.Message}", "Внутренняя ошибка");
+                        }  
+                    }
                     break;
                 case 4:
+                    using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                    {
+                        int newID;
+                        connect.Open();
+                        SqlCommand command = new SqlCommand($"SELECT MAX(id_code) FROM Orders", connect);
+                        SqlDataReader r = command.ExecuteReader();
+                        r.Read();
+                        try
+                        {
+                            newID = Convert.ToInt32(r[0]) + 1;
+                            r.Close();
+                            AddForm a = new AddForm();
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.ShowDialog();
+                            command.CommandText = $"INSERT Orders (id_code, Client, product, Selldata) VALUES ({newID}, {a.textboxtext1}, {a.textboxtext2}, GETDATE());";
+                            command.ExecuteNonQuery();
+                            label1.Text = $"datagrid {selectedDatagrid}; addform {a.textboxtext3}";
+                            ReloadAll();
+                        }
+                        catch (System.InvalidOperationException ex)
+                        {
+                            MessageBox.Show($"Error: {ex.Message}", "Внутренняя ошибка");
+                        }
+                    }
                     break;
             }
         }

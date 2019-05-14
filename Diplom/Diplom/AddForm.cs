@@ -84,6 +84,7 @@ namespace Diplom
 
         private void AddForm_Load(object sender, EventArgs e)
         {
+            this.ControlBox = false;
             label1.Visible = false;
             label2.Visible = false;
             label3.Visible = false;
@@ -104,34 +105,34 @@ namespace Diplom
                     this.Text = "Добавление продукта";
                     label1.Visible = true;
                     textBox1.Visible = true;
+                    label1.Text = "Производитель: ";
                     label2.Visible = true;
                     textBox2.Visible = true;
+                    label2.Text = "Название: ";
                     label3.Visible = true;
                     textBox3.Visible = true;
-                    label4.Visible = true;
-                    textBox4.Visible = true;
+                    label3.Text = "Цена :";
                     break;
                 case 3:
                     this.Text = "Добавление клиента";
                     label1.Visible = true;
                     textBox1.Visible = true;
+                    label1.Text = "ФИО Клиента: ";
                     label2.Visible = true;
                     textBox2.Visible = true;
+                    label2.Text = "Адрес: ";
                     label3.Visible = true;
                     textBox3.Visible = true;
-                    label4.Visible = true;
-                    textBox4.Visible = true;
+                    label3.Text = "Телефон: ";
                     break;
                 case 4:
                     this.Text = "Добавление продажи";
                     label1.Visible = true;
                     textBox1.Visible = true;
+                    label1.Text = "Клиент: ";
                     label2.Visible = true;
                     textBox2.Visible = true;
-                    label3.Visible = true;
-                    textBox3.Visible = true;
-                    label4.Visible = true;
-                    textBox4.Visible = true;
+                    label2.Text = "Покупка: ";
                     break;
             }
 
@@ -151,10 +152,53 @@ namespace Diplom
                     this.Close();
                     break;
                 case 2:
+                    if (textBox1.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    if (textBox2.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    if (textBox3.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    this.Close();
                     break;
                 case 3:
+                    if (textBox1.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    if (textBox2.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    if (textBox3.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    this.Close();
                     break;
                 case 4:
+                    if (textBox1.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    if (textBox2.Text == "")
+                    {
+                        MessageBox.Show("Не все поля заполнены");
+                        break;
+                    }
+                    this.Close();
                     break;
             }
         }
