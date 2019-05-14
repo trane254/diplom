@@ -86,8 +86,6 @@ namespace Diplom
         {
             this.ControlBox = false;
             this.Text = "Вход";
-            Database a = new Database();
-            a.ShowDialog();
         }
     }
 }

@@ -12,3 +12,4 @@ D:\diplom\Diplom\Diplom\obj\Debug\Diplom.MainMenu.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Settings.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Database.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.AddForm.resources
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.RedactForm.resources

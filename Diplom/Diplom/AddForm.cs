@@ -37,7 +37,7 @@ namespace Diplom
             }
             set
             {
-                textboxtext1 = Textboxtext1;
+                value = textboxtext1;
             }
         }
         public string textboxtext2

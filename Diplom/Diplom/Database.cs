@@ -116,6 +116,8 @@ namespace Diplom
         private void Database_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            this.Text = "База данных";
+            label1.Visible = false;
             ReloadAll();
         }
 
@@ -308,6 +310,69 @@ namespace Diplom
         {
             this.Close();
         }
+        private void button4_Click(object sender, EventArgs e) //редактирование
+        {
+            switch (selectedDatagrid)
+            {
+                case 1:
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+                        if (dataGridView1.Rows[i].Selected)
+                        {
+                            RedactForm a = new RedactForm();
+                            label1.Text = $"selected {dataGridView1.CurrentCell.Value}";
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.IDIndex = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            a.ShowDialog();
+                            //label1.Text = $"redact {dataGridView1.CurrentRow.Index} + {dataGridView1.CurrentCell.Value}";
+                            ReloadAll();
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        if (dataGridView2.Rows[i].Selected)
+                        {
+                            RedactForm a = new RedactForm();
+                            label1.Text = $"selected {dataGridView2.CurrentCell.Value}";
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.IDIndex = Convert.ToInt32(dataGridView2.CurrentCell.Value);
+                            a.ShowDialog();
+                            ReloadAll();
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                    {
+                        if (dataGridView3.Rows[i].Selected)
+                        {
+                            RedactForm a = new RedactForm();
+                            label1.Text = $"selected {dataGridView3.CurrentCell.Value}";
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.IDIndex = Convert.ToInt32(dataGridView3.CurrentCell.Value);
+                            a.ShowDialog();
+                            ReloadAll();
+                        }
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < dataGridView4.Rows.Count; i++)
+                    {
+                        if (dataGridView4.Rows[i].Selected)
+                        {
+                            RedactForm a = new RedactForm();
+                            label1.Text = $"selected {dataGridView4.CurrentCell.Value}";
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.IDIndex = Convert.ToInt32(dataGridView4.CurrentCell.Value);
+                            a.ShowDialog();
+                            ReloadAll();
+                        }
+                    }
+                    break;
+            }
+        }
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
@@ -330,7 +395,9 @@ namespace Diplom
             label1.Text = $"datagrid {selectedDatagrid}";
         }
 
-
-
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ReloadAll();
+        }
     }
 }
