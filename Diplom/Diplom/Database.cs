@@ -20,13 +20,12 @@ namespace Diplom
             InitializeComponent();
             
         }
-        private void LoadAll()
+        private void ReloadAll()
         {
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
             dataGridView3.Rows.Clear();
             dataGridView4.Rows.Clear();
-
 
             using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
@@ -116,10 +115,10 @@ namespace Diplom
 
         private void Database_Load(object sender, EventArgs e)
         {
-            LoadAll();
+            ReloadAll();
         }
 
-        private void button1_Click(object sender, EventArgs e) //добавление в базу, потом сделаю
+        private void button1_Click(object sender, EventArgs e) //добавление в базу
         {
             switch (selectedDatagrid)
             {
@@ -133,20 +132,47 @@ namespace Diplom
                         r.Read();
                         try
                         {
-                            newID = Convert.ToInt32(r[0]);
+                            newID = Convert.ToInt32(r[0]) + 1;
+                            r.Close();
                             AddForm a = new AddForm();
                             a.selectedDatagrid = selectedDatagrid;
                             a.ShowDialog();
-                            //command.CommandText = $"INSERT Prods (id_code, prod) VALUES ({newID}, {a.textboxtext1});";
-                            label1.Text = $"addform {a.textboxtext1}";
+                            command.CommandText = $"INSERT Prods (id_code, prod) VALUES ({newID}, '{a.textboxtext1}')";
+                            command.ExecuteNonQuery();
+                            label1.Text = $"datagrid {selectedDatagrid}; addform {a.textboxtext1}";
+                            ReloadAll();
                         }
                         catch (System.InvalidOperationException ex)
                         {
                             MessageBox.Show($"Error: {ex.Message}", "Внутренняя ошибка");
                         }
                     }
-                        break;
+                    break;
                 case 2:
+                    using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                    {
+                        int newID;
+                        connect.Open();
+                        SqlCommand command = new SqlCommand($"SELECT MAX(id_code) FROM Products", connect);
+                        SqlDataReader r = command.ExecuteReader();
+                        r.Read();
+                        try
+                        {
+                            newID = Convert.ToInt32(r[0]) + 1;
+                            r.Close();
+                            AddForm a = new AddForm();
+                            a.selectedDatagrid = selectedDatagrid;
+                            a.ShowDialog();
+                            command.CommandText = $"INSERT Products (id_code, manufacturer, name, price) VALUES (0, 0, '', 0);')";
+                            command.ExecuteNonQuery();
+                            label1.Text = $"datagrid {selectedDatagrid}; addform {a.textboxtext1}";
+                            ReloadAll();
+                        }
+                        catch (System.InvalidOperationException ex)
+                        {
+                            MessageBox.Show($"Error: {ex.Message}", "Внутренняя ошибка");
+                        }
+                    }
                     break;
                 case 3:
                     break;
@@ -154,8 +180,7 @@ namespace Diplom
                     break;
             }
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //удаление из базы
         {
             switch (selectedDatagrid)
             {
@@ -170,6 +195,7 @@ namespace Diplom
                                 connect.Open();
                                 SqlCommand command = new SqlCommand($"EXECUTE DeleteProds @id={dataGridView1.CurrentCell.Value}", connect);
                                 command.ExecuteNonQuery();
+                                ReloadAll();
                                 break;
                             }
                         }
@@ -186,6 +212,7 @@ namespace Diplom
                                 connect.Open();
                                 SqlCommand command = new SqlCommand($"EXECUTE DeleteProducts @id={dataGridView2.CurrentCell.Value}", connect);
                                 command.ExecuteNonQuery();
+                                ReloadAll();
                                 break;
                             }
                         }
@@ -202,6 +229,7 @@ namespace Diplom
                                 connect.Open();
                                 SqlCommand command = new SqlCommand($"EXECUTE DeleteCliens @id={dataGridView3.CurrentCell.Value}", connect);
                                 command.ExecuteNonQuery();
+                                ReloadAll();
                                 break;
 
                             }
@@ -219,6 +247,7 @@ namespace Diplom
                                 connect.Open();
                                 SqlCommand command = new SqlCommand($"EXECUTE DeleteOrders @id={dataGridView4.CurrentCell.Value}", connect);
                                 command.ExecuteNonQuery();
+                                ReloadAll();
                                 break;
                             }
                         }
@@ -226,8 +255,7 @@ namespace Diplom
                     break;
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) //закрытие окна работы с базой
         {
             this.Close();
         }

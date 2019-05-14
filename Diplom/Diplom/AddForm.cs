@@ -25,7 +25,10 @@ namespace Diplom
                 slDg = value;
             }
         }
-        
+        private string Textboxtext1;
+        private string Textboxtext2;
+        private string Textboxtext3;
+        private string Textboxtext4;
         public string textboxtext1
         {
             get
@@ -34,10 +37,9 @@ namespace Diplom
             }
             set
             {
-                textboxtext1 = value;
+                textboxtext1 = Textboxtext1;
             }
         }
-
         public string textboxtext2
         {
             get
@@ -78,6 +80,8 @@ namespace Diplom
             
         }
         
+        
+
         private void AddForm_Load(object sender, EventArgs e)
         {
             label1.Visible = false;
@@ -91,24 +95,35 @@ namespace Diplom
             switch (slDg)
             {
                 case 1:
+                    this.Text = "Добавление производителя";
                     label1.Visible = true;
                     textBox1.Visible = true;
+                    label1.Text = "Производитель: ";
                     break;
                 case 2:
-                    label1.Visible = true;
-                    textBox1.Visible = true;
-                    label2.Visible = true;
-                    textBox2.Visible = true;
-                    break;
-                case 3:
+                    this.Text = "Добавление продукта";
                     label1.Visible = true;
                     textBox1.Visible = true;
                     label2.Visible = true;
                     textBox2.Visible = true;
                     label3.Visible = true;
                     textBox3.Visible = true;
+                    label4.Visible = true;
+                    textBox4.Visible = true;
+                    break;
+                case 3:
+                    this.Text = "Добавление клиента";
+                    label1.Visible = true;
+                    textBox1.Visible = true;
+                    label2.Visible = true;
+                    textBox2.Visible = true;
+                    label3.Visible = true;
+                    textBox3.Visible = true;
+                    label4.Visible = true;
+                    textBox4.Visible = true;
                     break;
                 case 4:
+                    this.Text = "Добавление продажи";
                     label1.Visible = true;
                     textBox1.Visible = true;
                     label2.Visible = true;
@@ -127,15 +142,13 @@ namespace Diplom
             switch (slDg)
             {
                 case 1:
-                    label1.Text = "Производитель: ";
-                    label1.Visible = true;
-                    textBox1.Visible = true;
                     if(textBox1.Text == "")
                     {
-                        MessageBox.Show("Введите название производителя");
+                        MessageBox.Show("Не все поля заполнены");
                         break;
                     }
-                    textboxtext1 = textBox1.Text;
+                    Textboxtext1 = textBox1.Text;
+                    this.Close();
                     break;
                 case 2:
                     break;

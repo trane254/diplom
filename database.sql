@@ -60,8 +60,7 @@ INSERT Orders (id_code, Client, product, Selldata)
 
 
 
-INSERT Prods (id_code, prod)
-  VALUES (10, 'HUITA');
+INSERT Prods (id_code, prod) VALUES (10, 'HUITA');
 
 
 
