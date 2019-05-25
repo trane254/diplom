@@ -30,9 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -53,35 +50,6 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(367, 20);
             this.textBox1.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 122);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Тип входа:";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(183, 120);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.Text = "Клиентский";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(290, 120);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(82, 17);
-            this.radioButton2.TabIndex = 4;
-            this.radioButton2.Text = "Серверный";
-            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -106,12 +74,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 516);
+            this.ClientSize = new System.Drawing.Size(562, 515);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "Settings";
@@ -126,9 +91,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
     }

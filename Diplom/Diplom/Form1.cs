@@ -27,51 +27,29 @@ namespace Diplom
         {
             bool access = false;
 
-            if (Properties.Settings.Default.LoginType == "Client")
+            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
-
-                string[] Logins = { "Administrator", "Seller" };
-                string[] Passwords = { "admin", "qwerty" };
-                for (int i = 0; i < Logins.Length; i++)
+                connect.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Login = '" + textBox1.Text + "'", connect);
+                using (SqlDataReader r = command.ExecuteReader())
                 {
-                    if (textBox1.Text == Logins[i] && textBox2.Text == Passwords[i])
+                    r.Read();
+                    try
                     {
-                        access = true;
-                        break;
-                    }
-                }
-                if (access == false)
-                {
-                    MessageBox.Show("Проверьте правильность введенных данных");
-                }
-                
-            }
-            else//серверный вход
-            {
-                using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
-                {
-                    connect.Open();
-                    SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Login = '" + textBox1.Text + "'", connect);
-                    using (SqlDataReader r = command.ExecuteReader())
-                    {
-                        r.Read();
-                        try 
+                        if (textBox1.Text == r[0].ToString().Replace(" ", "") && textBox2.Text == r[1].ToString().Replace(" ", "")) //реплейсы для убирания пробелов после получения из БД
                         {
-                            if (textBox1.Text == r[0].ToString().Replace(" ","") && textBox2.Text == r[1].ToString().Replace(" ","")) //реплейсы для убирания пробелов после получения из БД
-                            {
-                                access = true;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Проверьте правильность введенных данных");
-                            }
+                            access = true;
                         }
-                        catch (System.InvalidOperationException)
+                        else
                         {
                             MessageBox.Show("Проверьте правильность введенных данных");
                         }
-
                     }
+                    catch (System.InvalidOperationException)
+                    {
+                        MessageBox.Show("Проверьте правильность введенных данных");
+                    }
+
                 }
             }
             if (access)
@@ -84,6 +62,7 @@ namespace Diplom
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            textBox2.PasswordChar = '*';
             this.ControlBox = false;
             this.Text = "Вход";
         }

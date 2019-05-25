@@ -4,104 +4,75 @@ USE Cb
 CREATE TABLE Users(
   Login CHAR(30),
   Password CHAR(30),
-  UserType CHAR(30)
+  UserType BINARY
+  )
+
+--товары(названия, типы, производители), поставки, продажи
+
+CREATE TABLE ПроизводителиТовара(
+  Код INT PRIMARY KEY,
+  Производитель CHAR(30)
+  )
+
+CREATE TABLE ТипыТовара(
+  Код INT PRIMARY KEY,
+  Тип CHAR(30)
+  )
+
+CREATE TABLE Товар(
+  Код INT PRIMARY KEY,
+  Производитель INT FOREIGN KEY REFERENCES ПроизводителиТовара(Код),
+  Тип INT FOREIGN KEY REFERENCES ТипыТовара(Код),
+  Название CHAR(30),
+  ЦенаПродажи INT,
+  КоличествоНаСкладе INT
+  )
+
+CREATE TABLE Поставки(
+  Код INT PRIMARY KEY,
+  ДатаПоставки DATE,
+  Товар INT FOREIGN KEY REFERENCES Товар(Код),
+  Цена INT,
+  Количество INT,
+  Стоимость INT
+  )
+
+CREATE TABLE Продажи(
+  Код INT PRIMARY KEY,
+  ДатаПоставки DATE,
+  Товар INT FOREIGN KEY REFERENCES Товар(Код),
+  ЦенаПродажи INT,
+  Количество INT,
+  Стоимость INT
   )
 
 
+  INSERT ПроизводителиТовара (Код, Производитель)
+  VALUES (0, 'IBANEZ');
+  INSERT ПроизводителиТовара (Код, Производитель)
+  VALUES (1, 'LINE 6');
+  INSERT ПроизводителиТовара (Код, Производитель)
+  VALUES (2, 'DDario');
 
-CREATE TABLE Prods(
-  id_code INT PRIMARY KEY,
-  prod CHAR(30)
-  )
-CREATE TABLE Cliens(
-  id_code INT PRIMARY KEY,
-  FirstAndSecond_name CHAR(30),
-  Adress CHAR(30),
-  Phone CHAR(30)
-  )
-CREATE TABLE Products(
-  id_code INT PRIMARY KEY,
-  manufacturer INT FOREIGN KEY REFERENCES Prods(id_code),
-  name CHAR(50),
-  price INT
-  )
-CREATE TABLE Orders(
-  id_code INT PRIMARY KEY,
-  Client INT FOREIGN KEY REFERENCES Cliens(id_code),
-  product INT FOREIGN KEY REFERENCES Products(id_code),
-  Selldata DATE,
-  )
+  INSERT ТипыТовара (Код, Тип)
+  VALUES (0, 'Гитара');
+  INSERT ТипыТовара (Код, Тип)
+  VALUES (1, 'Комбо-усилитель');
+  INSERT ТипыТовара (Код, Тип)
+  VALUES (2, 'Медиатор');
+  INSERT  ТипыТовара (Код, Тип)
+  VALUES (3, 'Струны');
+  
+  INSERT Товар (Код, Производитель, Тип, Название, ЦенаПродажи, КоличествоНаСкладе)
+  VALUES (0, 0, 0, 'GRG 121DX', 18000, 3);
+  INSERT Товар (Код, Производитель, Тип, Название, ЦенаПродажи, КоличествоНаСкладе)
+  VALUES (1, 1, 1, 'SPIDER CLASSIC 15', 13000, 2);
 
+  INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость)
+  VALUES (0, GETDATE(), 0, 15000, 2, 30000);
+  INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость)
+  VALUES (1, GETDATE(), 1, 9000, 2, 18000);
 
-INSERT Users (Login, Password, UserType)
-  VALUES ('Administrator', 'admin', 'Administrations'),
-  ('Seller', 'qwerty', 'Sellers');
-
-INSERT Prods (id_code, prod)
-  VALUES (0, 'Gibson'),
-  (1, 'Ibanez'),
-  (2, 'Line 6')
-INSERT Products (id_code, manufacturer, name, price)
-  VALUES (0, 0, 'Les Paul Custom Shop', 250000),
-  (1, 1, 'GRG121DX', 18000),
-  (2, 2, 'SPIDER CLASSIC 15', 13000)
-INSERT Cliens (id_code, FirstAndSecond_name, Adress, Phone)
-  VALUES (0, 'Жмышенко В.А.', 'Курлыковой, 27', '88005553535');
-INSERT Orders (id_code, Client, product, Selldata)
-  VALUES (0, 0, 0, GETDATE());
-
-
-
-
---https://works.doklad.ru/view/qulslt8qYLQ/2.html
-
-
-
-
-
-
-INSERT Prods (id_code, prod) VALUES (10, 'HUITA');
-
-
-
-SELECT MAX(id_code) FROM Prods
-SELECT * FROM Users WHERE Login = 'Administrator'
-SELECT * FROM Cliens
-SELECT * FROM Prods 
-SELECT * FROM Users
- 
-CREATE PROCEDURE dbo.DeleteProds
-@id INT
-AS
-BEGIN
-DELETE Prods WHERE id_code = @id
-END
-GO
-
-CREATE PROCEDURE dbo.DeleteCliens
-@id INT
-AS
-BEGIN
-DELETE Cliens WHERE id_code = @id
-END
-GO
-
-CREATE PROCEDURE dbo.DeleteProducts
-@id INT
-AS
-BEGIN
-DELETE Products WHERE id_code = @id
-END
-GO
-
-
-CREATE PROCEDURE dbo.DeleteOrders
-@id INT
-AS
-BEGIN
-DELETE Products WHERE id_code = @id
-END
-GO
-
-EXECUTE DeleteProds @id=10 
+  INSERT Продажи (Код, ДатаПоставки, Товар, ЦенаПродажи, Количество, Стоимость)
+  VALUES (0, '13.06.2019', 0, 18000, 1, 18000);
 

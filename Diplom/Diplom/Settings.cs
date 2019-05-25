@@ -19,16 +19,7 @@ namespace Diplom
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            textBox1.Text = Properties.Settings.Default.connectionString;
-            if (Properties.Settings.Default.LoginType == "Client")
-            {
-                radioButton1.Checked = true;
-            }
-            else
-            {
-                radioButton2.Checked = true;
-            }
-           
+
         }
 
         private void button2_Click(object sender, EventArgs e)

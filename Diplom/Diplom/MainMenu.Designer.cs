@@ -51,7 +51,6 @@
             this.базаДанныхToolStripMenuItem.Name = "базаДанныхToolStripMenuItem";
             this.базаДанныхToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.базаДанныхToolStripMenuItem.Text = "База данных";
-            this.базаДанныхToolStripMenuItem.Click += new System.EventHandler(this.базаДанныхToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
