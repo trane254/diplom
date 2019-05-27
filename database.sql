@@ -14,15 +14,15 @@ CREATE TABLE ПроизводителиТовара(
   Производитель CHAR(30)
   )
 
-CREATE TABLE ТипыТовара(
+CREATE TABLE Категория(
   Код INT PRIMARY KEY,
-  Тип CHAR(30)
+  Категория CHAR(30)
   )
 
 CREATE TABLE Товар(
   Код INT PRIMARY KEY,
   Производитель INT FOREIGN KEY REFERENCES ПроизводителиТовара(Код),
-  Тип INT FOREIGN KEY REFERENCES ТипыТовара(Код),
+  Категория INT FOREIGN KEY REFERENCES Категория(Код),
   Название CHAR(30),
   ЦенаПродажи INT,
   КоличествоНаСкладе INT
@@ -46,6 +46,8 @@ CREATE TABLE Продажи(
   Стоимость INT
   )
 
+  INSERT Users (Login, Password, UserType)
+  VALUES ('Administrator', 'admin', 1); 
 
   INSERT ПроизводителиТовара (Код, Производитель)
   VALUES (0, 'IBANEZ');
@@ -54,18 +56,18 @@ CREATE TABLE Продажи(
   INSERT ПроизводителиТовара (Код, Производитель)
   VALUES (2, 'DDario');
 
-  INSERT ТипыТовара (Код, Тип)
+  INSERT Категория (Код, Категория)
   VALUES (0, 'Гитара');
-  INSERT ТипыТовара (Код, Тип)
+  INSERT Категория (Код, Категория)
   VALUES (1, 'Комбо-усилитель');
-  INSERT ТипыТовара (Код, Тип)
+  INSERT Категория (Код, Категория)
   VALUES (2, 'Медиатор');
-  INSERT  ТипыТовара (Код, Тип)
+  INSERT  Категория (Код, Категория)
   VALUES (3, 'Струны');
   
-  INSERT Товар (Код, Производитель, Тип, Название, ЦенаПродажи, КоличествоНаСкладе)
+  INSERT Товар (Код, Производитель, Категория, Название, ЦенаПродажи, КоличествоНаСкладе)
   VALUES (0, 0, 0, 'GRG 121DX', 18000, 3);
-  INSERT Товар (Код, Производитель, Тип, Название, ЦенаПродажи, КоличествоНаСкладе)
+  INSERT Товар (Код, Производитель, Категория, Название, ЦенаПродажи, КоличествоНаСкладе)
   VALUES (1, 1, 1, 'SPIDER CLASSIC 15', 13000, 2);
 
   INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость)
@@ -76,3 +78,24 @@ CREATE TABLE Продажи(
   INSERT Продажи (Код, ДатаПоставки, Товар, ЦенаПродажи, Количество, Стоимость)
   VALUES (0, '13.06.2019', 0, 18000, 1, 18000);
 
+ SELECT * FROM Продажи
+
+  CREATE PROCEDURE dbo.AddManufacturer
+  @id INT,
+  @manufacturer CHAR(30)
+  AS
+  BEGIN
+    INSERT ПроизводителиТовара (Код, Производитель)
+  VALUES (@id, @manufacturer);
+  END
+  GO
+
+  CREATE PROCEDURE dbo.AddCategory
+  @id INT,
+  @category CHAR(30)
+  AS
+  BEGIN
+    INSERT Категория (Код, Категория)
+  VALUES (@id, @category);
+  END
+  GO

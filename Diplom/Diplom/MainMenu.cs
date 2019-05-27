@@ -26,12 +26,19 @@ namespace Diplom
         {
             this.ControlBox = false;
             this.Text = "Си-бемоль - " + Properties.Settings.Default.version;
+            //this.menuStrip1.Items.
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings s = new Settings();
             s.ShowDialog();
+        }
+
+        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Spravochnik a = new Spravochnik();
+            a.ShowDialog();
         }
     }
 }
