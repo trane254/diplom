@@ -26,7 +26,7 @@ namespace Diplom
         private void button1_Click(object sender, EventArgs e)
         {
             bool access = false;
-
+            int typeAccess = 0;
             using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 connect.Open();
@@ -38,6 +38,10 @@ namespace Diplom
                     {
                         if (textBox1.Text == r[0].ToString().Replace(" ", "") && textBox2.Text == r[1].ToString().Replace(" ", "")) //реплейсы для убирания пробелов после получения из БД
                         {
+                            if(Convert.ToInt32(r[2]) == 1)
+                            {
+                                typeAccess = 1;
+                            }
                             access = true;
                         }
                         else
@@ -56,6 +60,7 @@ namespace Diplom
             {
                 this.Visible = false;
                 MainMenu a = new MainMenu();
+                a.typeAccess = typeAccess;
                 a.ShowDialog();
             }
         }

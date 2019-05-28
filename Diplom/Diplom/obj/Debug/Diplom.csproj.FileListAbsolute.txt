@@ -11,3 +11,4 @@ D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Form1.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.MainMenu.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Settings.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Spravochnik.resources
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.DeleteFromSpravochnik.resources

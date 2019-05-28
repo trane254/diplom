@@ -25,81 +25,72 @@ namespace Diplom
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked) //производители
+
+            string cmd;
+            if(radioButton1.Checked)
             {
-                using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+                cmd = $"SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)";
+            }
+            else
+            {
+                cmd = $"SELECT * FROM Категория WHERE Код = (SELECT MAX(Категория.Код) FROM Категория)";
+            }
+            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                connect.Open();
+                SqlCommand command = new SqlCommand(cmd, connect);
+                using (SqlDataReader r = command.ExecuteReader())
                 {
-                    connect.Open();
-                    SqlCommand command = new SqlCommand($"SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)", connect);
+                    r.Read();
+                    int id = Convert.ToInt32(r[0]) + 1;
+                    r.Close();
+                    if(radioButton1.Checked)
+                    {
+                        command.CommandText = $"SELECT * FROM ПроизводителиТовара WHERE Производитель = '{textBox1.Text}'";
+                    }
+                    else
+                    {
+                        command.CommandText = $"SELECT * FROM Категория WHERE Категория = '{textBox1.Text}'";
+                    }
+                    SqlDataReader checkDublicate = command.ExecuteReader();
+                    checkDublicate.Read();
                     try
                     {
-                        using (SqlDataReader r = command.ExecuteReader())
+                        string s_ = checkDublicate[1].ToString();
+                        MessageBox.Show(s_);
+                    }
+                    catch(System.InvalidOperationException ex)
+                    {
+                        //MessageBox.Show("нету в бд");
+                        if (radioButton1.Checked)
                         {
-                            r.Read();
-                            int id = Convert.ToInt32(r[0]) + 1;
-                            r.Close();
-                            command.CommandText = $"SELECT * FROM ПроизводителиТовара WHERE Производитель = '{textBox1.Text}'";
-                            SqlDataReader CheckDublicate = command.ExecuteReader();
-                            CheckDublicate.Read();
-                            string s = CheckDublicate[1].ToString().Replace(" ", "");
-                            if (textBox1.Text == s)
-                            {
-                                MessageBox.Show("Этот производитель уже содержится в базе", "Ошибка");
-                                return;
-                            }
-                            CheckDublicate.Close();
+                            checkDublicate.Close();
                             command.CommandText = $"EXECUTE AddManufacturer @id = {id}, @manufacturer = '{textBox1.Text}'";
                             command.ExecuteNonQuery();
+                            return;
+                        }
+                        else
+                        {
+                            checkDublicate.Close();
+                            command.CommandText = $"EXECUTE AddCategory @id = {id}, @category = '{textBox1.Text}'";
+                            command.ExecuteNonQuery();
+                            return;
                         }
                     }
                     catch
                     {
-                        MessageBox.Show("Ошибка", "");
-                        return;
+                        //MessageBox.Show("Тут");
                     }
+                    MessageBox.Show("Элемент уже содержится в справочнике", "Ошибка");
                 }
             }
 
-            else //категория
-            {
-                using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
-                {
-                    connect.Open();
-                    SqlCommand command = new SqlCommand($"SELECT * FROM Категория WHERE Код = (SELECT MAX(Категория.Код) FROM Категория)", connect);
-                    try
-                    {
-                        using (SqlDataReader r = command.ExecuteReader())
-                        {
-                            r.Read();
-                            int id = Convert.ToInt32(r[0]) + 1;
-                            r.Close();
-                            command.CommandText = $"SELECT * FROM Категория WHERE Категория = '{textBox1.Text}'";
-                            SqlDataReader CheckDublicate = command.ExecuteReader();
-                            CheckDublicate.Read();
-                            string s = CheckDublicate[1].ToString().Replace(" ", "");
-                            if (textBox1.Text == s)
-                            {
-                                MessageBox.Show("Эта категория уже содержится в базе", "Ошибка");
-                                return;
-                            }
-                            CheckDublicate.Close();
-                            command.CommandText = $"EXECUTE AddCategory @id = {id}, @category = '{textBox1.Text}'";
-                            command.ExecuteNonQuery();
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Ошибка", "");
-                        return;
-                    }
-                }
-            }
         }
 
         private void Spravochnik_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
-            textBox1.Text = "Струны";
+            radioButton1.Checked = true;
         }
     }
 }

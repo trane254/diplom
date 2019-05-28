@@ -12,6 +12,20 @@ namespace Diplom
 {
     public partial class MainMenu : Form
     {
+        private int TypeAccess;
+        public int typeAccess
+        {
+            get
+            {
+                return TypeAccess;
+            }
+            set
+            {
+                TypeAccess = value;
+
+            }
+        }
+
         public MainMenu()
         {
             InitializeComponent();
@@ -27,6 +41,7 @@ namespace Diplom
             this.ControlBox = false;
             this.Text = "Си-бемоль - " + Properties.Settings.Default.version;
             //this.menuStrip1.Items.
+            label1.Text = $"Тип доступа {TypeAccess}";
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,6 +53,28 @@ namespace Diplom
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Spravochnik a = new Spravochnik();
+            a.ShowDialog();
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteFromSpravochnik a = new DeleteFromSpravochnik();
+            a.ShowDialog();
+        }
+
+        private void редактированиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(TypeAccess == 0)
+            {
+                MessageBox.Show("Вы не являетесь администратором", "Ошибка");
+                return;
+            }
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SellForm a = new SellForm();
             a.ShowDialog();
         }
     }

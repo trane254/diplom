@@ -4,7 +4,7 @@ USE Cb
 CREATE TABLE Users(
   Login CHAR(30),
   Password CHAR(30),
-  UserType BINARY
+  UserType INT
   )
 
 --товары(названия, типы, производители), поставки, продажи
@@ -77,8 +77,8 @@ CREATE TABLE Продажи(
 
   INSERT Продажи (Код, ДатаПоставки, Товар, ЦенаПродажи, Количество, Стоимость)
   VALUES (0, '13.06.2019', 0, 18000, 1, 18000);
-
- SELECT * FROM Продажи
+ 
+ SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)
 
   CREATE PROCEDURE dbo.AddManufacturer
   @id INT,
@@ -90,6 +90,11 @@ CREATE TABLE Продажи(
   END
   GO
 
+  SELECT * FROM Категория WHERE Категория = 'Струны'
+  SELECT * FROM ПроизводителиТовара
+    SELECT * FROM ПроизводителиТовара WHERE Производитель = 'Line 6'
+      DELETE Категория WHERE Категория = ''
+
   CREATE PROCEDURE dbo.AddCategory
   @id INT,
   @category CHAR(30)
@@ -99,3 +104,6 @@ CREATE TABLE Продажи(
   VALUES (@id, @category);
   END
   GO
+  
+
+SELECT * FROM ПроизводителиТовара WHERE Производитель = 'asdf'
