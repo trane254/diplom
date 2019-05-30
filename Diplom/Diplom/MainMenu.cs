@@ -41,7 +41,15 @@ namespace Diplom
             this.ControlBox = false;
             this.Text = "Си-бемоль - " + Properties.Settings.Default.version;
             //this.menuStrip1.Items.
-            label1.Text = $"Тип доступа {TypeAccess}";
+            if (TypeAccess == 1)
+            {
+                label1.Text = $"Тип доступа: Администратор";
+            }
+            else
+            {
+                label1.Text = "Тип доступа: Продавец";
+            }
+            
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)

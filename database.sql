@@ -78,7 +78,6 @@ CREATE TABLE Продажи(
   INSERT Продажи (Код, ДатаПоставки, Товар, ЦенаПродажи, Количество, Стоимость)
   VALUES (0, '13.06.2019', 0, 18000, 1, 18000);
  
- SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)
 
   CREATE PROCEDURE dbo.AddManufacturer
   @id INT,
@@ -90,11 +89,6 @@ CREATE TABLE Продажи(
   END
   GO
 
-  SELECT * FROM Категория WHERE Категория = 'Струны'
-  SELECT * FROM ПроизводителиТовара
-    SELECT * FROM ПроизводителиТовара WHERE Производитель = 'Line 6'
-      DELETE Категория WHERE Категория = ''
-
   CREATE PROCEDURE dbo.AddCategory
   @id INT,
   @category CHAR(30)
@@ -105,5 +99,15 @@ CREATE TABLE Продажи(
   END
   GO
   
+CREATE PROCEDURE dbo.SellFilter
+    
 
 SELECT * FROM ПроизводителиТовара WHERE Производитель = 'asdf'
+ SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)
+  SELECT * FROM Категория 
+    SELECT Товар.ЦенаПродажи FROM Товар WHERE Название = ''
+SELECT Товар.Код FROM Товар WHERE Название = ''
+SELECT * FROM Продажи
+SELECT * FROM Товар
+
+UPDATE Товар SET КоличествоНаСкладе = 0 WHERE Название = '';
