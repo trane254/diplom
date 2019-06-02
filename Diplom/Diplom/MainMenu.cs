@@ -85,5 +85,11 @@ namespace Diplom
             SellForm a = new SellForm();
             a.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Postavka a = new Postavka();
+            a.ShowDialog();
+        }
     }
 }
