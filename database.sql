@@ -48,6 +48,8 @@ CREATE TABLE Продажи(
 
   INSERT Users (Login, Password, UserType)
   VALUES ('Administrator', 'admin', 1); 
+  INSERT Users (Login, Password, UserType)
+  VALUES ('Seller', 'Lespaul228', 0);
 
   INSERT ПроизводителиТовара (Код, Производитель)
   VALUES (0, 'IBANEZ');
@@ -99,8 +101,7 @@ CREATE TABLE Продажи(
   END
   GO
   
-CREATE PROCEDURE dbo.SellFilter
-    
+
 
 SELECT * FROM ПроизводителиТовара WHERE Производитель = 'asdf'
  SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)
@@ -110,4 +111,15 @@ SELECT Товар.Код FROM Товар WHERE Название = ''
 SELECT * FROM Продажи
 SELECT * FROM Товар
 
+
 UPDATE Товар SET КоличествоНаСкладе = 0 WHERE Название = '';
+SELECT Товар.Код FROM Товар WHERE Код = (SELECT MAX(Товар.Код) FROM Товар)
+INSERT Товар (Код, Производитель, Категория, Название, ЦенаПродажи, КоличествоНаСкладе) VALUES (0, 0, 0, '', 0, 0);
+SELECT ПроизводителиТовара.Код FROM ПроизводителиТовара WHERE Производитель = 'IBANEZ'
+SELECT Код FROM Категория WHERE Категория = 'Гитара'
+  SELECT Код FROM Поставки п WHERE Код = (SELECT MAX(Код) FROM Поставки)
+SELECT Название FROM Товар WHERE Название = 'GRG 121DX'
+  SELECT * FROM Товар WHERE Название = 'GRG 121DX'
+INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость) VALUES (0, GETDATE(), 0, 0, 0, 0)
+UPDATE Товар SET КоличествоНаСкладе = 10 WHERE Название = 'GRG 121DX'
+SELECT КоличествоНаСкладе, Код FROM Товар WHERE Название = 'GRG 121DX'
