@@ -20,7 +20,10 @@ namespace Diplom
         }
         private void ReloadAll_noAutofill()
         {
-            using(SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            comboBox3.Items.Clear();
+            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 connect.Open();
                 string cmd = "SELECT * FROM Категория";
@@ -41,7 +44,7 @@ namespace Diplom
                     }
                 }
                 command.CommandText = "SELECT Товар.Название FROM Товар";
-                using (SqlDataReader r = command.ExecuteReader()) //производители
+                using (SqlDataReader r = command.ExecuteReader()) //названия товаров
                 {
                     while (r.Read())
                     {
@@ -73,8 +76,13 @@ namespace Diplom
 
         private void autoFillStepOne(object sender, EventArgs e)
         {
+
             if (autoFill == 1)
             {
+                comboBox2.Items.Clear();
+                comboBox3.Items.Clear();
+                textBox2.Text = "";
+                textBox4.Text = "";
                 using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString)) //производитель
                 {
                     connection.Open();
@@ -103,7 +111,6 @@ namespace Diplom
                             r.Read();
                             comboBox2.Items.Add(r[0].ToString());
                             r.Close();
-
                         }
                     }
                 }
@@ -112,9 +119,39 @@ namespace Diplom
 
         private void autoFillStepTwo(object sender, EventArgs e)
         {
+
             if (autoFill == 1)
             {
-                //SELECT Название FROM Товар WHERE Производитель = 0 AND Категория = 0
+                int IDCategory, IDManufactur;
+                comboBox3.Items.Clear();
+                textBox2.Text = "";
+                textBox4.Text = "";
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand($"SELECT Код FROM Категория WHERE Категория = '{comboBox1.SelectedItem.ToString()}'", connection); //получаем ID категории
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        IDCategory = int.Parse(r[0].ToString());
+                        r.Close();
+                    }
+                    command.CommandText = $"SELECT Код FROM ПроизводителиТовара WHERE Производитель = '{comboBox2.SelectedItem.ToString()}'"; //получаем ID производителя
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        IDManufactur = int.Parse(r[0].ToString());
+                        r.Close();
+                    }
+                    command.CommandText = $"SELECT Название FROM Товар WHERE Производитель = {IDManufactur} AND Категория = {IDCategory}";
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        while(r.Read())
+                        {
+                            comboBox3.Items.Add(r[0].ToString());
+                        }
+                    }
+                }
             }
         }
 
@@ -132,6 +169,7 @@ namespace Diplom
             else
             {
                 autoFill = 0;
+                ReloadAll_noAutofill();
             }
             this.ControlBox = false;
             this.Text = "Продажа";
@@ -205,21 +243,37 @@ namespace Diplom
             if (checkBox1.Checked == true)
             {
                 //comboBox1.Items.Clear();
-                //comboBox2.Items.Clear();
-                //comboBox3.Items.Clear();
+                comboBox2.Items.Clear();
+                comboBox3.Items.Clear();
+                textBox2.Text = "";
+                textBox4.Text = "";
                 autoFill = 1;
             }
             else
             {
                 autoFill = 0;
-                comboBox1.Items.Clear();
+                //comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
+                comboBox3.Items.Clear();
+                textBox2.Text = "";
+                textBox4.Text = "";
                 ReloadAll_noAutofill();
             }
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            using(SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand($"SELECT ЦенаПродажи FROM Товар WHERE Название = '{comboBox3.SelectedItem.ToString()}'", connection);
+                using (SqlDataReader r = command.ExecuteReader())
+                {
+                    r.Read();
+                    textBox2.Text = r[0].ToString();
+                    r.Close();
+                }
+            }
         }
     }
 }

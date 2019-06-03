@@ -125,3 +125,14 @@ UPDATE Товар SET КоличествоНаСкладе = 10 WHERE Название = 'GRG 121DX'
 SELECT КоличествоНаСкладе, Код FROM Товар WHERE Название = 'GRG 121DX'
 SELECT * FROM Users
 INSERT Users (Login, Password, UserType) VALUES ('', '', 0);
+DELETE Users WHERE Login = ''
+SELECT Производитель FROM Товар WHERE Код = (SELECT Код FROM Категория WHERE Категория = 'Гитара')
+SELECT Производитель FROM ПроизводителиТовара WHERE Код = 0
+SELECT Название, ЦенаПродажи FROM Товар WHERE Производитель = (SELECT Код FROM ПроизводителиТовара WHERE Производитель = 'IBANEZ')
+SELECT ЦенаПродажи FROM Товар WHERE Название = 'GRG 121DX'
+  SELECT Название FROM Товар WHERE Производитель = (SELECT Код FROM ПроизводителиТовара WHERE Производитель = '')
+    SELECT Производитель FROM ПроизводителиТовара WHERE Код = (SELECT Производитель FROM Товар)
+SELECT Код FROM Категория WHERE Категория = 'Гитара'
+SELECT Производитель FROM Товар WHERE Категория = 0
+SELECT Производитель FROM ПроизводителиТовара WHERE Код = 0
+SELECT Название FROM Товар WHERE Производитель = 0 AND Категория = 0
