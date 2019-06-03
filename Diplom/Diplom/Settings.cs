@@ -17,17 +17,16 @@ namespace Diplom
         {
             InitializeComponent();
         }
-
-        private void Settings_Load(object sender, EventArgs e)
+        private void ReloadAll()
         {
-            textBox1.Text = Properties.Settings.Default.connectionString;
+            dataGridView1.Rows.Clear();
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT * FROM Users", connection);
                 using (SqlDataReader r = command.ExecuteReader())
                 {
-                    while(r.Read())
+                    while (r.Read())
                     {
                         DataGridViewRow row = new DataGridViewRow();
                         DataGridViewCell c1 = new DataGridViewTextBoxCell();
@@ -41,6 +40,13 @@ namespace Diplom
                     }
                 }
             }
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            textBox1.Text = Properties.Settings.Default.connectionString;
+            ReloadAll();
+            this.ControlBox = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -66,6 +72,23 @@ namespace Diplom
         {
             AddUser a = new AddUser();
             a.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                connect.Open();
+                SqlCommand command = new SqlCommand($"DELETE Users WHERE Login = '{dataGridView1.SelectedCells[0].Value.ToString()}'", connect);
+                command.ExecuteNonQuery();
+            }
+            ReloadAll();
+            MessageBox.Show("Пользователь удален");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.connectionString = textBox1.Text;
         }
     }
 }

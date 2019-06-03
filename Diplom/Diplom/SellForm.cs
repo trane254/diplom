@@ -13,11 +13,12 @@ namespace Diplom
 {
     public partial class SellForm : Form
     {
+        int autoFill;
         public SellForm()
         {
             InitializeComponent();
         }
-        private void ReloadAll()
+        private void ReloadAll_noAutofill()
         {
             using(SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
@@ -51,36 +52,95 @@ namespace Diplom
             }
         }
 
+        private void autoFillPreload()
+        {
+            comboBox2.Items.Clear();
+            comboBox3.Items.Clear();
+            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                connect.Open();
+                string cmd = "SELECT * FROM Категория";
+                SqlCommand command = new SqlCommand(cmd, connect);
+                using (SqlDataReader r = command.ExecuteReader()) //категории
+                {
+                    while (r.Read())
+                    {
+                        comboBox1.Items.Add(r[1].ToString().Replace(" ", ""));
+                    }
+                }
+            }
+        }
+
+        private void autoFillStepOne(object sender, EventArgs e)
+        {
+            if (autoFill == 1)
+            {
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString)) //производитель
+                {
+                    connection.Open();
+                    int IDCategory;
+                    List<int> numbers = new List<int>();
+                    SqlCommand command = new SqlCommand($"SELECT Код FROM Категория WHERE Категория = '{comboBox1.SelectedItem.ToString()}'", connection);
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        IDCategory = int.Parse(r[0].ToString());
+                        r.Close();
+                    }
+                    command.CommandText = $"SELECT Производитель FROM Товар WHERE Категория = {IDCategory}";
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        while(r.Read())
+                        {
+                            numbers.Add(int.Parse(r[0].ToString()));
+                        }
+                    }
+                    for(int i = 0; i < numbers.Count(); i++)
+                    {
+                        command.CommandText = $"SELECT Производитель FROM ПроизводителиТовара WHERE Код = {numbers[i]}";
+                        using (SqlDataReader r = command.ExecuteReader())
+                        {
+                            r.Read();
+                            comboBox2.Items.Add(r[0].ToString());
+                            r.Close();
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void autoFillStepTwo(object sender, EventArgs e)
+        {
+            if (autoFill == 1)
+            {
+                //SELECT Название FROM Товар WHERE Производитель = 0 AND Категория = 0
+            }
+        }
+
         private void SellForm_Load(object sender, EventArgs e)
         {
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            checkBox1.Checked = true;
+            if (checkBox1.Checked == true)
+            {
+                autoFill = 1;
+                autoFillPreload();
+            }
+            else
+            {
+                autoFill = 0;
+            }
             this.ControlBox = false;
             this.Text = "Продажа";
-            ReloadAll();
+            //ReloadAll_noAutofill();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
-            {
-                connect.Open();
-                string cmd = $"SELECT Товар.ЦенаПродажи FROM Товар WHERE Название = '{comboBox3.SelectedItem.ToString()}'";
-                //MessageBox.Show(cmd);
-                SqlCommand command = new SqlCommand(cmd, connect);
-                using (SqlDataReader r = command.ExecuteReader())
-                {
-                    r.Read();
-                    textBox2.Text = r[0].ToString();
-                    r.Close();
-                }
-            }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -138,6 +198,28 @@ namespace Diplom
                 }
 
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                //comboBox1.Items.Clear();
+                //comboBox2.Items.Clear();
+                //comboBox3.Items.Clear();
+                autoFill = 1;
+            }
+            else
+            {
+                autoFill = 0;
+                comboBox1.Items.Clear();
+                ReloadAll_noAutofill();
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

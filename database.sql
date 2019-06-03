@@ -123,3 +123,5 @@ SELECT Название FROM Товар WHERE Название = 'GRG 121DX'
 INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость) VALUES (0, GETDATE(), 0, 0, 0, 0)
 UPDATE Товар SET КоличествоНаСкладе = 10 WHERE Название = 'GRG 121DX'
 SELECT КоличествоНаСкладе, Код FROM Товар WHERE Название = 'GRG 121DX'
+SELECT * FROM Users
+INSERT Users (Login, Password, UserType) VALUES ('', '', 0);

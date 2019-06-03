@@ -23,12 +23,15 @@ namespace Diplom.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=Cb;Integrated Security=True")]
         public string connectionString {
             get {
                 return ((string)(this["connectionString"]));
+            }
+            set {
+                this["connectionString"] = value;
             }
         }
         

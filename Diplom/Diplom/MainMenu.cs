@@ -54,8 +54,16 @@ namespace Diplom
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Settings s = new Settings();
-            s.ShowDialog();
+            if (TypeAccess == 1)
+            {
+                Settings s = new Settings();
+                s.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Вы не являетесь администратором", "Ошибка");
+            }
+
         }
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,7 +83,6 @@ namespace Diplom
             if(TypeAccess == 0)
             {
                 MessageBox.Show("Вы не являетесь администратором", "Ошибка");
-                return;
             }
             
         }
@@ -90,6 +97,18 @@ namespace Diplom
         {
             Postavka a = new Postavka();
             a.ShowDialog();
+        }
+
+        private void редактироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (TypeAccess == 1)
+            {
+                //форма редактирования
+            }
+            else
+            {
+                MessageBox.Show("Вы не являетесь администратором", "Ошибка");
+            }
         }
     }
 }

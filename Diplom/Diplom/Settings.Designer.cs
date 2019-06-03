@@ -67,6 +67,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -142,6 +143,7 @@
             this.button4.TabIndex = 10;
             this.button4.Text = "Удалить пользователя";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Settings
             // 

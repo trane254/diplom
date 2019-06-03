@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Diplom.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="connectionString" Type="System.String" Scope="Application">
+    <Setting Name="connectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data Source=.\SQLEXPRESS;Initial Catalog=Cb;Integrated Security=True</Value>
     </Setting>
     <Setting Name="version" Type="System.String" Scope="Application">
