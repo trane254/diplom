@@ -136,3 +136,12 @@ SELECT Код FROM Категория WHERE Категория = 'Гитара'
 SELECT Производитель FROM Товар WHERE Категория = 0
 SELECT Производитель FROM ПроизводителиТовара WHERE Код = 0
 SELECT Название FROM Товар WHERE Производитель = 0 AND Категория = 0
+SELECT Код FROM Категория WHERE Категория = 'Гитара'
+SELECT Код FROM ПроизводителиТовара WHERE Производитель = 'Gibson'
+SELECT * FROM Поставки 
+SELECT Производитель, Категория FROM Товар WHERE Код = 1
+ SELECT Категория FROM Категория WHERE Код = 1
+SELECT Название FROM Товар WHERE Код = 0
+SELECT * FROM Продажи
+SELECT * FROM Товар
+SELECT Категория FROM Категория WHERE Код = 

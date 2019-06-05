@@ -118,26 +118,27 @@ namespace Diplom
             a.ShowDialog();
         }
 
-        private void поставкиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void производителиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Prosmotr a = new Prosmotr();
             a.type_ = 2;
             a.ShowDialog();
         }
 
-        private void продажиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void поставкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Prosmotr a = new Prosmotr();
             a.type_ = 3;
             a.ShowDialog();
         }
 
-        private void производителиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void продажиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Prosmotr a = new Prosmotr();
             a.type_ = 4;
             a.ShowDialog();
         }
+
 
         private void товарToolStripMenuItem_Click(object sender, EventArgs e)
         {

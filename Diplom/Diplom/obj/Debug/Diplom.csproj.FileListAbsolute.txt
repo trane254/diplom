@@ -15,3 +15,5 @@ D:\diplom\Diplom\Diplom\obj\Debug\Diplom.DeleteFromSpravochnik.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.SellForm.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Postavka.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.AddUser.resources
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.test.resources
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Prosmotr.resources
