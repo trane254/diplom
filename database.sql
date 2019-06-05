@@ -145,3 +145,4 @@ SELECT Название FROM Товар WHERE Код = 0
 SELECT * FROM Продажи
 SELECT * FROM Товар
 SELECT Категория FROM Категория WHERE Код = 
+SELECT * FROM Продажи

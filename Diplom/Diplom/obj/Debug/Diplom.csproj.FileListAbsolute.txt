@@ -15,5 +15,9 @@ D:\diplom\Diplom\Diplom\obj\Debug\Diplom.DeleteFromSpravochnik.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.SellForm.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Postavka.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.AddUser.resources
-D:\diplom\Diplom\Diplom\obj\Debug\Diplom.test.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Prosmotr.resources
+D:\diplom\Diplom\Diplom\bin\Debug\Xceed.Words.NET.dll
+D:\diplom\Diplom\Diplom\bin\Debug\Xceed.Words.NET.pdb
+D:\diplom\Diplom\Diplom\bin\Debug\Xceed.Words.NET.xml
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Otchet.resources
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.csproj.CopyComplete

@@ -49,7 +49,6 @@ namespace Diplom
             {
                 label1.Text = "Тип доступа: Продавец";
             }
-            
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -144,6 +143,12 @@ namespace Diplom
         {
             Prosmotr a = new Prosmotr();
             a.type_ = 5;
+            a.ShowDialog();
+        }
+
+        private void продажиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Otchet a = new Otchet();
             a.ShowDialog();
         }
     }
