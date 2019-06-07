@@ -159,6 +159,7 @@ namespace Diplom
                 }
 
             }
+            MessageBox.Show("Добавлено в базу данных");
         }
 
         private void button3_Click(object sender, EventArgs e)

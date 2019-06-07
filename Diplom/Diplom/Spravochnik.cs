@@ -67,6 +67,7 @@ namespace Diplom
                             checkDublicate.Close();
                             command.CommandText = $"EXECUTE AddManufacturer @id = {id}, @manufacturer = '{textBox1.Text}'";
                             command.ExecuteNonQuery();
+                            MessageBox.Show("Добавлено в базу данных");
                             return;
                         }
                         else
@@ -74,6 +75,7 @@ namespace Diplom
                             checkDublicate.Close();
                             command.CommandText = $"EXECUTE AddCategory @id = {id}, @category = '{textBox1.Text}'";
                             command.ExecuteNonQuery();
+                            MessageBox.Show("Добавлено в базу данных");
                             return;
                         }
                     }

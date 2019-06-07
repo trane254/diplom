@@ -36,6 +36,7 @@ namespace Diplom
         private void Otchet_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            this.Text = "Отчет";
             radioButton1.Checked = true;
         }
 

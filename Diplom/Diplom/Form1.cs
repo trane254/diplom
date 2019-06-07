@@ -71,5 +71,20 @@ namespace Diplom
             this.ControlBox = false;
             this.Text = "Вход";
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.PageUp)
+            {
+                textBox1.Text = "Administrator";
+                textBox2.Text = "admin";
+            }
+            if (e.KeyCode == Keys.PageDown)
+            {
+                textBox1.Text = "Seller";
+                textBox2.Text = "Lespaul228";
+
+            }
+        }
     }
 }

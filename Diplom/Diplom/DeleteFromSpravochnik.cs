@@ -100,6 +100,7 @@ namespace Diplom
                 }
                 SqlCommand command = new SqlCommand($"DELETE Категория WHERE Категория = '{dataGridView1.SelectedCells[0].Value.ToString()}'", connect);
                 command.ExecuteNonQuery();
+                MessageBox.Show("Добавлено в базу данных");
             }
         }
     }
