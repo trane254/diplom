@@ -151,5 +151,86 @@ namespace Diplom
             Otchet a = new Otchet();
             a.ShowDialog();
         }
+
+        private void редактированиеПолейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void категорииToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (TypeAccess != 1)
+            {
+                MessageBox.Show("Вы не являетесь системным администратором");
+            }
+            else
+            {
+                RedactForm a = new RedactForm();
+                a.typeredact = 1;
+                a.ShowDialog();
+                
+            }
+
+        }
+
+        private void производителиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (TypeAccess != 1)
+            {
+                MessageBox.Show("Вы не являетесь системным администратором");
+            }
+            else
+            {
+                RedactForm a = new RedactForm();
+                a.typeredact = 2;
+                a.ShowDialog();
+            }
+
+        }
+
+        private void поставкиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (TypeAccess != 1)
+            {
+                MessageBox.Show("Вы не являетесь системным администратором");
+            }
+            else
+            {
+                RedactForm a = new RedactForm();
+                a.typeredact = 3;
+                a.ShowDialog();
+            }
+
+        }
+
+        private void продажиToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (TypeAccess != 1)
+            {
+                MessageBox.Show("Вы не являетесь системным администратором");
+            }
+            else
+            {
+                RedactForm a = new RedactForm();
+                a.typeredact = 4;
+                a.ShowDialog();
+            }
+
+        }
+
+        private void товарToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (TypeAccess != 1)
+            {
+                MessageBox.Show("Вы не являетесь системным администратором");
+            }
+            else
+            {
+                RedactForm a = new RedactForm();
+                a.typeredact = 5;
+                a.ShowDialog();
+            }
+
+        }
     }
 }

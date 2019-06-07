@@ -146,3 +146,7 @@ SELECT * FROM Продажи
 SELECT * FROM Товар
 SELECT Категория FROM Категория WHERE Код = 
 SELECT * FROM Продажи
+SELECT * FROM ПроизводителиТовара
+UPDATE Товар SET Код = 0, Производитель = 0, Категория = 0 ,Название = '', ЦенаПродажи = 0, КоличествоНаСкладе = 0 WHERE Код = 0;
+SELECT Код FROM ПроизводителиТовара  WHERE Производитель = 'IBANEZ'
+SELECT * FROM Товар

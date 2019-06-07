@@ -21,3 +21,4 @@ D:\diplom\Diplom\Diplom\bin\Debug\Xceed.Words.NET.pdb
 D:\diplom\Diplom\Diplom\bin\Debug\Xceed.Words.NET.xml
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.Otchet.resources
 D:\diplom\Diplom\Diplom\obj\Debug\Diplom.csproj.CopyComplete
+D:\diplom\Diplom\Diplom\obj\Debug\Diplom.RedactForm.resources

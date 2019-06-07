@@ -100,8 +100,6 @@ namespace Diplom
 
                     //MessageBox.Show(path);
                 }
-
-
             }
 
         }

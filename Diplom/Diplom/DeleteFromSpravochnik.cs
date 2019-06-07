@@ -85,7 +85,7 @@ namespace Diplom
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(dataGridView1.SelectedCells[0].Value.ToString());
+            //MessageBox.Show(dataGridView1.SelectedCells[0].Value.ToString());
             using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 connect.Open();

@@ -163,6 +163,9 @@
     <EmbeddedResource Include="Prosmotr.resx">
       <DependentUpon>Prosmotr.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RedactForm.resx">
+      <DependentUpon>RedactForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SellForm.resx">
       <DependentUpon>SellForm.cs</DependentUpon>
     </EmbeddedResource>
