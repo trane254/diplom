@@ -30,7 +30,7 @@ namespace Diplom
                 TypeRedact = value;
             }
         }
-        private string Nazvanie;
+        public string IDCode;
 
         private string ReturnFullNameTovar(string value_)
         {
@@ -146,77 +146,97 @@ namespace Diplom
             return a;
         }
 
-
+        //private ReturnID
 
         private void RedactForm_Load(object sender, EventArgs e) ////////////////////////////////
         {
             this.ControlBox = false;
-            this.Text = "Просмотр";
+            this.Text = "Редактирование ";
             string FullNameTovar = "";
+            List<string> category = new List<string>();
+            List<string> manufact = new List<string>();
             DataGridViewTextBoxColumn dgv1 = new DataGridViewTextBoxColumn();
             dgv1.Name = "Column1";
             DataGridViewTextBoxColumn dgv2 = new DataGridViewTextBoxColumn();
             dgv2.Name = "Column2";
             DataGridViewTextBoxColumn dgv3 = new DataGridViewTextBoxColumn();
-            dgv2.Name = "Column3";
+            dgv3.Name = "Column3";
             DataGridViewTextBoxColumn dgv4 = new DataGridViewTextBoxColumn();
-            dgv2.Name = "Column4";
+            dgv4.Name = "Column4";
             DataGridViewTextBoxColumn dgv5 = new DataGridViewTextBoxColumn();
-            dgv2.Name = "Column5";
+            dgv5.Name = "Column5";
+            DataGridViewTextBoxColumn dgv6 = new DataGridViewTextBoxColumn();
+            dgv6.Name = "Column6";
+            DataGridViewTextBoxColumn dgv7 = new DataGridViewTextBoxColumn();
+            dgv7.Name = "Column7";
+            DataGridViewTextBoxColumn dgv8 = new DataGridViewTextBoxColumn();
+            dgv8.Name = "Column8";
 
             switch (TypeRedact)
             {
-
                 case 1://категория
-                    this.Text = "Просмотр категорий";
-                    dgv1.HeaderText = "Категория";
-                    dataGridView1.Columns.Add(dgv1);
+                    this.Text += "категорий";
+                    dgv1.HeaderText = "IDCode";
+                    dgv2.HeaderText = "Категория";
+                    dataGridView1.Columns.AddRange(dgv1, dgv2);
+                    dataGridView1.Columns[0].Visible = false;
                     using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
                     {
                         connection.Open();
-                        SqlCommand command = new SqlCommand("SELECT Категория FROM Категория", connection);
+                        SqlCommand command = new SqlCommand("SELECT * FROM Категория", connection);
                         using (SqlDataReader r = command.ExecuteReader())
                         {
                             while (r.Read())
                             {
                                 DataGridViewRow row = new DataGridViewRow();
                                 DataGridViewTextBoxCell c1 = new DataGridViewTextBoxCell();
-                                c1.Value = r[0];
-                                row.Cells.Add(c1);
+                                c1.Value = r[0].ToString();
+                                DataGridViewTextBoxCell c2 = new DataGridViewTextBoxCell();
+                                c2.Value = r[1];
+                                row.Cells.AddRange(c1, c2);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
                     }
                     break;
                 case 2:
-                    this.Text = "Просмотр производителей";
-                    dgv1.HeaderText = "Производители";
-                    dataGridView1.Columns.Add(dgv1);
+                    this.Text += "производителей";
+                    dgv1.HeaderText = "IDCode";
+                    dgv2.HeaderText = "Производитель";
+                    dataGridView1.Columns.AddRange(dgv1, dgv2);
+                    dataGridView1.Columns[0].Visible = false;
                     using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
                     {
                         connection.Open();
-                        SqlCommand command = new SqlCommand("SELECT Производитель FROM ПроизводителиТовара", connection);
+                        SqlCommand command = new SqlCommand("SELECT * FROM ПроизводителиТовара", connection);
                         using (SqlDataReader r = command.ExecuteReader())
                         {
                             while (r.Read())
                             {
                                 DataGridViewRow row = new DataGridViewRow();
                                 DataGridViewTextBoxCell c1 = new DataGridViewTextBoxCell();
-                                c1.Value = r[0];
-                                row.Cells.Add(c1);
+                                c1.Value = r[0].ToString();
+                                DataGridViewTextBoxCell c2 = new DataGridViewTextBoxCell();
+                                c2.Value = r[1].ToString();
+                                row.Cells.AddRange(c1, c2);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
                     }
                     break;
                 case 3:
-                    this.Text = "Просмотр поставок";
+                    this.Text += " поставок";
                     dgv1.HeaderText = "Дата поставки";
                     dgv2.HeaderText = "Товар";
                     dgv3.HeaderText = "Цена закупки";
                     dgv4.HeaderText = "Количество";
                     dgv5.HeaderText = "Стоимость";
-                    dataGridView1.Columns.AddRange(dgv1, dgv2, dgv3, dgv4, dgv5);
+                    dgv6.HeaderText = "IDCode";
+                    dgv7.HeaderText = "Категория";
+                    dgv8.HeaderText = "Производитель";
+                    dataGridView1.Columns.AddRange(dgv6, dgv1, dgv2, dgv3, dgv4, dgv5);
+                    dataGridView1.Columns[0].Visible = false;
+                    //dataGridView1.Columns[1].Visible = false;
                     using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
                     {
                         connection.Open();
@@ -227,32 +247,42 @@ namespace Diplom
                             {
                                 DataGridViewRow row = new DataGridViewRow();
                                 DataGridViewTextBoxCell c1 = new DataGridViewTextBoxCell();
-                                c1.Value = r[1].ToString().Remove(10);
+                                c1.Value = r[0].ToString();
                                 DataGridViewTextBoxCell c2 = new DataGridViewTextBoxCell();
-                                c2.Value = ReturnFullNameTovar(r[2].ToString());
-                                DataGridViewTextBoxCell c3 = new DataGridViewTextBoxCell();
-                                c3.Value = r[3].ToString();
-                                DataGridViewTextBoxCell c4 = new DataGridViewTextBoxCell();
-                                c4.Value = r[4].ToString();
-                                DataGridViewTextBoxCell c5 = new DataGridViewTextBoxCell();
-                                c5.Value = r[5].ToString();
-                                row.Cells.AddRange(c1, c2, c3, c4, c5);
-                                dgv1.Width = 100;
+                                c2.Value = r[1].ToString().Remove(10);
                                 dgv2.Width = 350;
+                                DataGridViewTextBoxCell c3 = new DataGridViewTextBoxCell();
+                                c3.Value = ReturnFullNameTovar(r[2].ToString());
+                                DataGridViewTextBoxCell c4 = new DataGridViewTextBoxCell();
+                                c4.Value = r[3].ToString();
+                                DataGridViewTextBoxCell c5 = new DataGridViewTextBoxCell();
+                                c5.Value = r[4].ToString();
+                                DataGridViewTextBoxCell c6 = new DataGridViewTextBoxCell();
+                                c6.Value = int.Parse(c4.Value.ToString()) * int.Parse(c5.Value.ToString());
+                                
+                                row.Cells.AddRange(c1, c2, c3, c4, c5, c6);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
                     }
+                    dataGridView1.Columns[1].ReadOnly = true;
+                    dataGridView1.Columns[2].ReadOnly = true;
+                    dataGridView1.Columns[5].ReadOnly = true;
                     break;
                 case 4:
-                    this.Text = "Просмотр продаж";
+                    this.Text += " продаж";
                     FullNameTovar = "";
                     dgv1.HeaderText = "Дата поставки";
                     dgv2.HeaderText = "Товар";
                     dgv3.HeaderText = "Цена продажи";
                     dgv4.HeaderText = "Количество";
                     dgv5.HeaderText = "Стоимость";
-                    dataGridView1.Columns.AddRange(dgv1, dgv2, dgv3, dgv4, dgv5);
+                    dgv6.HeaderText = "IDCode";
+                    dgv7.HeaderText = "IDCodeTovara";
+                    dataGridView1.Columns.AddRange(dgv6, dgv1, dgv2, dgv3, dgv4, dgv5, dgv7);
+                    dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[1].Visible = false;
+                    dataGridView1.Columns[6].Visible = false;
                     using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
                     {
                         connection.Open();
@@ -263,34 +293,43 @@ namespace Diplom
                             {
                                 DataGridViewRow row = new DataGridViewRow();
                                 DataGridViewTextBoxCell c1 = new DataGridViewTextBoxCell();
-                                c1.Value = r[1].ToString().Remove(10);
+                                c1.Value = r[0].ToString();
                                 DataGridViewTextBoxCell c2 = new DataGridViewTextBoxCell();
-                                c2.Value = ReturnFullNameTovar(r[2].ToString());
+                                c2.Value = r[1].ToString().Remove(10);
                                 DataGridViewTextBoxCell c3 = new DataGridViewTextBoxCell();
-                                c3.Value = r[3].ToString();
-                                DataGridViewTextBoxCell c4 = new DataGridViewTextBoxCell();
-                                c4.Value = r[4].ToString();
-                                DataGridViewTextBoxCell c5 = new DataGridViewTextBoxCell();
-                                c5.Value = r[5].ToString();
-                                row.Cells.AddRange(c1, c2, c3, c4, c5);
-                                dgv1.Width = 100;
+                                c3.Value = ReturnFullNameTovar(r[2].ToString());
+                                //MessageBox.Show(r[2].ToString());
                                 dgv2.Width = 350;
+                                DataGridViewTextBoxCell c4 = new DataGridViewTextBoxCell();
+                                c4.Value = r[3].ToString();
+                                DataGridViewTextBoxCell c5 = new DataGridViewTextBoxCell();
+                                c5.Value = r[4].ToString();
+                                DataGridViewTextBoxCell c6 = new DataGridViewTextBoxCell();
+                                c6.Value = int.Parse(c4.Value.ToString()) * int.Parse(c5.Value.ToString());
+                                DataGridViewTextBoxCell c7 = new DataGridViewTextBoxCell();
+                                c7.Value = r[2].ToString();
+
+                                row.Cells.AddRange(c1, c2, c3, c4, c5, c6, c7);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
+                        dataGridView1.Columns[1].ReadOnly = true;
+                        dataGridView1.Columns[2].ReadOnly = true;
+                        dataGridView1.Columns[5].ReadOnly = true;
                     }
                     break;
                 case 5:
-                    this.Text = "Просмотр товара";
+                    this.Text += " товара";
                     FullNameTovar = "";
                     dgv1.HeaderText = "Категория";
                     dgv2.HeaderText = "Производитель";
                     dgv3.HeaderText = "Название";
                     dgv4.HeaderText = "Цена Продажи";
                     dgv5.HeaderText = "Количество на складе";
-                    List<string> category = new List<string>();
-                    List<string> manufact = new List<string>();
-                    dataGridView1.Columns.AddRange(dgv1, dgv2, dgv3, dgv4, dgv5);
+                    dgv6.HeaderText = "Код";
+                    dataGridView1.Columns.AddRange(dgv6 ,dgv1, dgv2, dgv3, dgv4, dgv5);
+                    dataGridView1.Columns[0].Visible = false;
+                    
                     using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
                     {
                         connection.Open();
@@ -318,6 +357,8 @@ namespace Diplom
                             while (r.Read())
                             {
                                 DataGridViewRow row = new DataGridViewRow();
+                                DataGridViewTextBoxCell c6 = new DataGridViewTextBoxCell();
+                                c6.Value = r[0].ToString();
                                 DataGridViewComboBoxCell c1 = new DataGridViewComboBoxCell();
                                 c1.Items.Add(ReturnCategory(int.Parse(r[2].ToString())));
                                 c1.Value = c1.Items[0];
@@ -329,8 +370,6 @@ namespace Diplom
                                     }
                                     c1.Items.Add(category[i]);
                                 }
-                                //category.Add(ReturnCategory(int.Parse(r[2].ToString())));
-                                //c1.Value = ReturnCategory(int.Parse(r[2].ToString()));
                                 DataGridViewComboBoxCell c2 = new DataGridViewComboBoxCell();
                                 c2.Items.Add(ReturnManufact(int.Parse(r[1].ToString())));
                                 c2.Value = c2.Items[0];
@@ -342,20 +381,17 @@ namespace Diplom
                                     }
                                     c2.Items.Add(manufact[i]);
                                 }
-                                //manufact.Add(ReturnManufact(int.Parse(r[1].ToString())));
-                                //c2.Value = ReturnManufact(int.Parse(r[1].ToString()));
                                 DataGridViewTextBoxCell c3 = new DataGridViewTextBoxCell();
                                 c3.Value = r[3].ToString();
                                 DataGridViewTextBoxCell c4 = new DataGridViewTextBoxCell();
                                 c4.Value = r[4].ToString();
                                 DataGridViewTextBoxCell c5 = new DataGridViewTextBoxCell();
                                 c5.Value = r[5].ToString();
-                                row.Cells.AddRange(c1, c2, c3, c4, c5);
+                                row.Cells.AddRange(c6, c1, c2, c3, c4, c5);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
                     }
-                    //MessageBox.Show(category[0]);
                     break;
             }
         }
@@ -369,20 +405,58 @@ namespace Diplom
         {
             using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
+                string cmd = "";
                 connect.Open();
+                SqlCommand command = new SqlCommand(cmd, connect);
                 switch(typeredact)
                 {
-                    case 5:
-                        string cmd = $"UPDATE Товар SET Производитель = {ReturnManufactID(dataGridView1.SelectedCells[1].Value.ToString())}, " +
-                            $"Категория = {ReturnCategoryID(dataGridView1.SelectedCells[0].Value.ToString())}, " +
-                            $"Название = '{dataGridView1.SelectedCells[2].Value.ToString()}', " +
+                    case 1:
+                        cmd = $"UPDATE Категория SET Категория = '{dataGridView1.SelectedCells[1].Value.ToString()}'" +
+                            $" WHERE Код = {dataGridView1.SelectedCells[0].Value.ToString()}";
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Отредактировано");
+                        break;
+                    case 2:
+                        cmd = $"UPDATE ПроизводителиТовара SET Производитель = '{dataGridView1.SelectedCells[1].Value.ToString()}' " +
+                            $"WHERE Код = {dataGridView1.SelectedCells[0].Value.ToString()}";
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Отредактировано");
+                        break;
+                    case 3:
+                        cmd = $"UPDATE Поставки SET " +
+                            $"Товар = {IDCode}, " +
+                            $"Цена = {dataGridView1.SelectedCells[3].Value.ToString()}, " +
+                            $"Количество = {dataGridView1.SelectedCells[4].Value.ToString()}, " +
+                            $"Стоимость = {dataGridView1.SelectedCells[5].Value.ToString()} " +
+                            $"WHERE Код = {dataGridView1.SelectedCells[0].Value.ToString()}";
+                        //MessageBox.Show(cmd);
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Отредактировано");
+                        break;
+                    case 4:
+                        cmd = $"UPDATE Продажи SET Товар = {dataGridView1.SelectedCells[6].Value.ToString()}, " +
                             $"ЦенаПродажи = {dataGridView1.SelectedCells[3].Value.ToString()}, " +
-                            $"КоличествоНаСкладе = {dataGridView1.SelectedCells[4].Value.ToString()} " +
-                            $"WHERE Название = '{Nazvanie}'";
-                            MessageBox.Show(cmd);
-                            //SqlCommand command = new SqlCommand(cmd, connect);
-                            //command.ExecuteNonQuery();
+                            $"Количество = {dataGridView1.SelectedCells[4].Value.ToString()} ," +
+                            $"Стоимость = {dataGridView1.SelectedCells[5].Value.ToString()} " +
+                            $"WHERE Код = {dataGridView1.SelectedCells[0].Value.ToString()}";
+                        //MessageBox.Show(cmd);
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Отредактировано");
+                        break;
+                    case 5:
+                        cmd = $"UPDATE Товар SET Производитель = {ReturnManufactID(dataGridView1.SelectedCells[2].Value.ToString())}, " +
+                            $"Категория = {ReturnCategoryID(dataGridView1.SelectedCells[1].Value.ToString())}, " +
+                            $"Название = '{dataGridView1.SelectedCells[3].Value.ToString()}', " +
+                            $"ЦенаПродажи = {dataGridView1.SelectedCells[4].Value.ToString()}, " +
+                            $"КоличествоНаСкладе = {dataGridView1.SelectedCells[5].Value.ToString()} " +
+                            $"WHERE Код = '{IDCode}'";
 
+                        command = new SqlCommand(cmd, connect);
+                        command.ExecuteNonQuery();
                         MessageBox.Show("Отредактировано");
                         break;
                 }
@@ -391,16 +465,31 @@ namespace Diplom
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            
             try
             {
-                Nazvanie = dataGridView1.SelectedCells[2].Value.ToString();
-                MessageBox.Show(Nazvanie);
+                if (typeredact != 4)
+                {
+                    IDCode = dataGridView1.SelectedCells[0].Value.ToString();
+                }
+                if (typeredact == 3)
+                {
+                    dataGridView1.SelectedCells[5].Value = int.Parse(dataGridView1.SelectedCells[3].Value.ToString()) * int.Parse(dataGridView1.SelectedCells[4].Value.ToString());
+                }
+                if (typeredact == 4)
+                {
+                    dataGridView1.SelectedCells[5].Value = int.Parse(dataGridView1.SelectedCells[3].Value.ToString()) * int.Parse(dataGridView1.SelectedCells[4].Value.ToString());
+                    //using (SqlConnection connection = new SqlConnection())
+                    //{
+                    //    connection.Open();
+
+                    //}
+                }
             }
             catch (System.ArgumentOutOfRangeException )
             {
 
             }
+
         }
         
     }
