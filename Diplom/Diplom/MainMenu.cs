@@ -149,6 +149,7 @@ namespace Diplom
         private void продажиToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Otchet a = new Otchet();
+            a.typeotchet = 0;
             a.ShowDialog();
         }
 
@@ -231,6 +232,13 @@ namespace Diplom
                 a.ShowDialog();
             }
 
+        }
+
+        private void поступленияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Otchet a = new Otchet();
+            a.typeotchet = 1;
+            a.ShowDialog();
         }
     }
 }

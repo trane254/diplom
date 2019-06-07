@@ -198,13 +198,13 @@ namespace Diplom
             using (SqlConnection connect = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 connect.Open();
-                string cmd = "SELECT Товар.Код FROM Товар WHERE Код = (SELECT MAX(Товар.Код) FROM Товар)";
+                string cmd = "SELECT MAX(Код) FROM  Продажи";
                 int newID, tovarID, naSklade;
                 SqlCommand command = new SqlCommand(cmd, connect);
                 using (SqlDataReader r = command.ExecuteReader()) //категории
                 {
                     r.Read();
-                    newID = int.Parse(r[0].ToString());
+                    newID = int.Parse(r[0].ToString()) + 1;
                     r.Close();
                 }
                 command.CommandText = $"SELECT Товар.Код FROM Товар WHERE Название = '{comboBox3.SelectedItem}'";
@@ -221,7 +221,7 @@ namespace Diplom
                     naSklade = int.Parse(r[0].ToString());
                     r.Close();
                 }
-                if (naSklade - int.Parse(textBox3.Text) <= 0)
+                if ((naSklade - int.Parse(textBox3.Text)) < 0)
                 {
                     MessageBox.Show($"Нехватает товаров на складе \n На складе {naSklade}", "Ошибка");
                     return;
