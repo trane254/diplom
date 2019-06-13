@@ -82,7 +82,7 @@ namespace Diplom
             if (e.KeyCode == Keys.PageDown)
             {
                 textBox1.Text = "Seller";
-                textBox2.Text = "Lespaul228";
+                textBox2.Text = "OTDAITE_DIPLOM_PLZ";
 
             }
         }

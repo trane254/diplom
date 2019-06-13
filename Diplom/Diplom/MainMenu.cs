@@ -240,5 +240,11 @@ namespace Diplom
             a.typeotchet = 1;
             a.ShowDialog();
         }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            about a = new about();
+            a.ShowDialog();
+        }
     }
 }

@@ -211,7 +211,7 @@ namespace Diplom
                 case 4:
                     this.Text = "Просмотр продаж";
                     FullNameTovar = "";
-                    dgv1.HeaderText = "Дата поставки";
+                    dgv1.HeaderText = "Дата продажи";
                     dgv2.HeaderText = "Товар";
                     dgv3.HeaderText = "Цена продажи";
                     dgv4.HeaderText = "Количество";

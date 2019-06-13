@@ -68,6 +68,7 @@ namespace Diplom
         private void DeleteFromSpravochnik_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            this.Text = "Удаление из справочника";
             radioButton1.Checked = true;
             DatagridLoad();
             

@@ -57,7 +57,7 @@ namespace Diplom
                     try
                     {
                         string s_ = checkDublicate[1].ToString();
-                        MessageBox.Show(s_);
+                        //MessageBox.Show(s_);
                     }
                     catch(System.InvalidOperationException ex)
                     {
@@ -93,6 +93,7 @@ namespace Diplom
         {
             this.ControlBox = false;
             radioButton1.Checked = true;
+            this.Text = "Добавление справочников";
         }
     }
 }
