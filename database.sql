@@ -7,7 +7,6 @@ CREATE TABLE Users(
   UserType INT
   )
 
---товары(названия, типы, производители), поставки, продажи
 
 CREATE TABLE ПроизводителиТовара(
   Код INT PRIMARY KEY,
@@ -101,7 +100,7 @@ CREATE TABLE Продажи(
   END
   GO
   
-
+-- ниже просто мусор, писать без IntelliSence такое
 
 SELECT * FROM ПроизводителиТовара WHERE Производитель = 'asdf'
  SELECT * FROM ПроизводителиТовара WHERE Код = (SELECT MAX(ПроизводителиТовара.Код) FROM ПроизводителиТовара)

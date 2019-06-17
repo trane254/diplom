@@ -94,72 +94,78 @@ namespace Diplom
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int newIDpostavki, newIDTovara, idProizvoditelya, idCategory;
-            string proizvoditel, category;
-            category = comboBox1.SelectedItem.ToString();
-            proizvoditel = comboBox2.SelectedItem.ToString();
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SELECT Код FROM Поставки WHERE Код = (SELECT MAX(Код) FROM Поставки)", connection);
-                using (SqlDataReader r = command.ExecuteReader())
+                int newIDpostavki, newIDTovara, idProizvoditelya, idCategory;
+                string proizvoditel, category;
+                category = comboBox1.SelectedItem.ToString();
+                proizvoditel = comboBox2.SelectedItem.ToString();
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
                 {
-                    r.Read();
-                    newIDpostavki = int.Parse(r[0].ToString()) + 1;
-                    r.Close();
-                }
-                command.CommandText = "SELECT Товар.Код FROM Товар WHERE Код = (SELECT MAX(Товар.Код) FROM Товар)";
-                using (SqlDataReader r = command.ExecuteReader())
-                {
-                    r.Read();
-                    newIDTovara = int.Parse(r[0].ToString()) + 1;
-                    r.Close();
-                }
-
-                command.CommandText = $"SELECT ПроизводителиТовара.Код FROM ПроизводителиТовара WHERE Производитель = '{proizvoditel}'";
-                using (SqlDataReader r = command.ExecuteReader())
-                {
-                    r.Read();
-                    idProizvoditelya = int.Parse(r[0].ToString());
-                    r.Close();
-                }
-                command.CommandText = $"SELECT Код FROM Категория WHERE Категория = '{category}'";
-                using (SqlDataReader r = command.ExecuteReader())
-                {
-                    r.Read();
-                    idCategory = int.Parse(r[0].ToString());
-                    r.Close();
-                }
-                if (checkInBase() == false)
-                {
-                    command.CommandText = $"INSERT Товар (Код, Производитель, Категория, Название, ЦенаПродажи, КоличествоНаСкладе) VALUES ({newIDTovara}, {idProizvoditelya}, {idCategory}, '{textBox1.Text}', {textBox3.Text}, {textBox4.Text})";
-                    command.ExecuteNonQuery();
-                    command.CommandText = $"INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость) VALUES ({newIDpostavki}, GETDATE(), {newIDTovara}, {textBox2.Text}, {textBox4.Text}, {textBox5.Text})";
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Добавлено в базу данных");
-                    //сначала товар, потом поставка
-                }
-                else
-                {
-                    int countInBase, IDTovara;
-                    command.CommandText = $"SELECT КоличествоНаСкладе, Код FROM Товар WHERE Название = '{textBox1.Text}'";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("SELECT Код FROM Поставки WHERE Код = (SELECT MAX(Код) FROM Поставки)", connection);
                     using (SqlDataReader r = command.ExecuteReader())
                     {
                         r.Read();
-                        countInBase = int.Parse(r[0].ToString());
-                        IDTovara = int.Parse(r[1].ToString());
+                        newIDpostavki = int.Parse(r[0].ToString()) + 1;
                         r.Close();
                     }
-                    command.CommandText = $"UPDATE Товар SET КоличествоНаСкладе = {countInBase + int.Parse(textBox4.Text)} WHERE Название = '{textBox1.Text}'";
-                    command.ExecuteNonQuery();
-                    command.CommandText = $"INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость) VALUES ({newIDpostavki}, GETDATE(), {IDTovara}, {textBox2.Text}, {textBox4.Text}, {textBox5.Text})";
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Добавлено в базу данных");
-                    //сначала товар, потом поставка
-                }
+                    command.CommandText = "SELECT Товар.Код FROM Товар WHERE Код = (SELECT MAX(Товар.Код) FROM Товар)";
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        newIDTovara = int.Parse(r[0].ToString()) + 1;
+                        r.Close();
+                    }
 
+                    command.CommandText = $"SELECT ПроизводителиТовара.Код FROM ПроизводителиТовара WHERE Производитель = '{proizvoditel}'";
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        idProizvoditelya = int.Parse(r[0].ToString());
+                        r.Close();
+                    }
+                    command.CommandText = $"SELECT Код FROM Категория WHERE Категория = '{category}'";
+                    using (SqlDataReader r = command.ExecuteReader())
+                    {
+                        r.Read();
+                        idCategory = int.Parse(r[0].ToString());
+                        r.Close();
+                    }
+                    if (checkInBase() == false)
+                    {
+                        command.CommandText = $"INSERT Товар (Код, Производитель, Категория, Название, ЦенаПродажи, КоличествоНаСкладе) VALUES ({newIDTovara}, {idProizvoditelya}, {idCategory}, '{textBox1.Text}', {textBox3.Text}, {textBox4.Text})";
+                        command.ExecuteNonQuery();
+                        command.CommandText = $"INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость) VALUES ({newIDpostavki}, GETDATE(), {newIDTovara}, {textBox2.Text}, {textBox4.Text}, {textBox5.Text})";
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Добавлено в базу данных");
+                        //сначала товар, потом поставка
+                    }
+                    else
+                    {
+                        int countInBase, IDTovara;
+                        command.CommandText = $"SELECT КоличествоНаСкладе, Код FROM Товар WHERE Название = '{textBox1.Text}'";
+                        using (SqlDataReader r = command.ExecuteReader())
+                        {
+                            r.Read();
+                            countInBase = int.Parse(r[0].ToString());
+                            IDTovara = int.Parse(r[1].ToString());
+                            r.Close();
+                        }
+                        command.CommandText = $"UPDATE Товар SET КоличествоНаСкладе = {countInBase + int.Parse(textBox4.Text)} WHERE Название = '{textBox1.Text}'";
+                        command.ExecuteNonQuery();
+                        command.CommandText = $"INSERT Поставки (Код, ДатаПоставки, Товар, Цена, Количество, Стоимость) VALUES ({newIDpostavki}, GETDATE(), {IDTovara}, {textBox2.Text}, {textBox4.Text}, {textBox5.Text})";
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Добавлено в базу данных");
+                        //сначала товар, потом поставка
+                    }
+                }
+                //MessageBox.Show("Добавлено в базу данных");
             }
-            MessageBox.Show("Добавлено в базу данных");
+            catch
+            {
+                MessageBox.Show("Проверьте правильность ввода данных или вызовите администратора", "Ошибка");
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
